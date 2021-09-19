@@ -1,9 +1,9 @@
-package at.study.automation.test;
+package zotov_sd.automation_qa.test;
 
-import at.study.automation.model.user.Email;
-import at.study.automation.model.user.Token;
-import at.study.automation.model.user.User;
 import org.testng.annotations.Test;
+import zotov_sd.automation_qa.model.user.Email;
+import zotov_sd.automation_qa.model.user.Token;
+import zotov_sd.automation_qa.model.user.User;
 
 import java.util.Collections;
 

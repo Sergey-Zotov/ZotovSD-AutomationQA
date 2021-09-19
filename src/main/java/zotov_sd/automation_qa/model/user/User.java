@@ -1,19 +1,19 @@
-package at.study.automation.model.user;
+package zotov_sd.automation_qa.model.user;
 
-import at.study.automation.model.Creatable;
-import at.study.automation.model.project.Project;
-import at.study.automation.model.role.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zotov_sd.automation_qa.model.Creatable;
+import zotov_sd.automation_qa.model.project.Project;
+import zotov_sd.automation_qa.model.role.Role;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static at.study.automation.utils.StringUtils.randomEnglishString;
-import static at.study.automation.utils.StringUtils.randomHexString;
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
+import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
+import static zotov_sd.automation_qa.utils.StringUtils.randomHexString;
 
 
 @NoArgsConstructor

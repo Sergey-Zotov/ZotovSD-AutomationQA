@@ -1,4 +1,4 @@
-package at.study.automation.model.user;
+package zotov_sd.automation_qa.model.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

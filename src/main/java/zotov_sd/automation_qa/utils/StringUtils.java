@@ -1,4 +1,4 @@
-package at.study.automation.utils;
+package zotov_sd.automation_qa.utils;
 
 import java.util.Random;
 

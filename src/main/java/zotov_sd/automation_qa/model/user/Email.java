@@ -1,11 +1,11 @@
-package at.study.automation.model.user;
+package zotov_sd.automation_qa.model.user;
 
-import at.study.automation.model.Creatable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zotov_sd.automation_qa.model.Creatable;
 
-import static at.study.automation.utils.StringUtils.randomEmail;
+import static zotov_sd.automation_qa.utils.StringUtils.randomEmail;
 
 @NoArgsConstructor
 @Setter
