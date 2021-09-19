@@ -21,12 +21,12 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomHexString;
 @Getter
 public class User extends CreatableEntity implements Creatable<User> {
 
-    private String login = "AutoLogin" + randomEnglishString(10);
+    private String login = "ZSD" + randomEnglishString(10);
     private String password = "1qaz@WSX";
     private String salt = randomHexString(32);
     private String hashedPassword = hashPassword();
-    private String firstName = "AutoF" + randomEnglishString(10);
-    private String lastName = "AutoL" + randomEnglishString(10);
+    private String firstName = "ZSD" + randomEnglishString(10);
+    private String lastName = "ZSD" + randomEnglishString(10);
     private Boolean isAdmin = false;
     private Status status = Status.ACTIVE;
     private LocalDateTime lastLoginOn;
@@ -40,11 +40,17 @@ public class User extends CreatableEntity implements Creatable<User> {
     private List<Token> tokens = new ArrayList<>();
     private List<Email> emails = new ArrayList<>();
 
+    /**
+     * При изменении пароля будет автоматически пересоздаваться hashedPassword.
+     */
     public void setPassword(String password) {
         this.password = password;
         this.hashedPassword = hashPassword();
     }
 
+    /**
+     * Сщздает hashedPassword из salt и пароля.
+     */
     private String hashPassword() {
         return sha1Hex(salt + sha1Hex(password));
     }
