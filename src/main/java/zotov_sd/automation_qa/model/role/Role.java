@@ -20,7 +20,7 @@ public class Role extends Entity implements Creatable<Role> {
     private UsersVisibility usersVisibility = UsersVisibility.ALL;   //Видимость пользователей
     private TimeEntriesVisibility timeEntriesVisibility = TimeEntriesVisibility.ALL;  //Видимость трудозатрат
     private Boolean allRoesManaged = false;   // Управление участниками
-    private Settings settings = new Settings();   //адачи
+    private Settings settings = new Settings();   //Задачи
 
     private static int positions = 0;
 
