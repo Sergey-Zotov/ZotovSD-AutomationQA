@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import zotov_sd.automation_qa.model.Creatable;
-import zotov_sd.automation_qa.model.user.Entity;
+import zotov_sd.automation_qa.model.Entity;
 
 @NoArgsConstructor
 @Getter

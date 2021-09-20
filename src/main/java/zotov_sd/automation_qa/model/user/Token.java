@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import zotov_sd.automation_qa.model.Creatable;
+import zotov_sd.automation_qa.model.CreatableEntity;
 
 import static zotov_sd.automation_qa.utils.StringUtils.randomHexString;
 
