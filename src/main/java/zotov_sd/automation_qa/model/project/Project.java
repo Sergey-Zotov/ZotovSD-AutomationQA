@@ -14,8 +14,8 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 public class Project extends CreatableEntity implements Creatable<Project> {
 
     private String name = "ZSD" + randomEnglishString(5);
-    private String description;  // описание
-    private String homepage;  //стартовая страница
+    private String description = "ZSD description";  // описание
+    private String homepage = "ZSD.com";  //стартовая страница
     private Boolean isPublic = false;  //общедоступный
     private Integer parentId;  // id родительского проекта
     private String identifier; // уникальный индификатор
