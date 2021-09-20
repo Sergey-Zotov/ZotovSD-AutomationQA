@@ -1,6 +1,7 @@
 package zotov_sd.automation_qa.model.role;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import zotov_sd.automation_qa.model.Creatable;
 import zotov_sd.automation_qa.model.Entity;
@@ -10,26 +11,21 @@ import java.util.List;
 
 import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class Role extends Entity implements Creatable<Role> {
 
     private String name = "ZSD" + randomEnglishString(5);
-    private Integer position = roles.size() - 1;       //индекс роли, т.е. как она будет отображаться
-    private Boolean assignable = false;     //Задача может быть назначена этой роли
-    private Integer builtin = 0;   //не в курсе если честно, попробуй 0 использовать везде
-    private Permissions permissions = new Permissions();  // права доступа
-    private IssueVisibility issueVisibility = IssueVisibility.ALL;   //Видимость задачи
-    private UsersVisibility usersVisibility = UsersVisibility.ALL;   //Видимость пользователей
-    private TimeEntriesVisibility timeEntriesVisibility = TimeEntriesVisibility.ALL;  //Видимость трудозатрат
-    private Boolean allRoesManaged = false;   // Управление участниками
-    private Settings settings = new Settings();   //Задачи
-
-    private static List<Role> roles = new ArrayList<>();
-
-    public Role() {
-        roles.add(this);
-    }
+    private Integer position = 1;
+    private Boolean assignable = false;
+    private Integer builtin = 0;
+    private List<Permissions> permissions = new ArrayList<>();
+    private IssueVisibility issueVisibility = IssueVisibility.ALL;
+    private UsersVisibility usersVisibility = UsersVisibility.ALL;
+    private TimeEntriesVisibility timeEntriesVisibility = TimeEntriesVisibility.ALL;
+    private Boolean allRolesManaged = false;
+    private Settings settings = new Settings();
 
     @Override
     public Role create() {

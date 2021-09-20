@@ -14,17 +14,17 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 public class Project extends CreatableEntity implements Creatable<Project> {
 
     private String name = "ZSD" + randomEnglishString(5);
-    private String description = "ZSD description";  // описание
-    private String homepage = "ZSD.com";  //стартовая страница
-    private Boolean isPublic = false;  //общедоступный
-    private Integer parentId;  // id родительского проекта
-    private String identifier; // уникальный индификатор
+    private String description = "ZSD" + randomEnglishString(5);
+    private String homepage = "ZSD.com";
+    private Boolean isPublic = false;
+    private Integer parentId;
+    private String identifier;
     private Status status = Status.OPEN;
-    private Integer lft; // значение по умолчанию
-    private Integer rgt; // значение по умолчанию
-    private Boolean inheritMembers = false; // наследовать участников
-    private Integer defaultVersionId = null;  // версия проекта, если есть
-    private Integer defaultAssignedToId = null; // id участника на которого назначена задача, если есть.
+    private Integer lft = 1;
+    private Integer rgt = 2;
+    private Boolean inheritMembers = false;
+    private Integer defaultVersionId = null;
+    private Integer defaultAssignedToId = null;
 
     @Override
     public Project create() {

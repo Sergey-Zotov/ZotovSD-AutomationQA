@@ -21,6 +21,7 @@ public class StringUtils {
 
     /**
      * Генерирует 16ричную стороку.
+     *
      * @param length длина сторки.
      * @return сгенерированная строка.
      */
@@ -30,6 +31,7 @@ public class StringUtils {
 
     /**
      * Генерирует латинскую строку определенной длины.
+     *
      * @param length длина строки.
      * @return сгенерированную латинскую строку.
      */
@@ -39,8 +41,9 @@ public class StringUtils {
 
     /**
      * Генерирует строку по передаваемому патерну определенной длины.
+     *
      * @param pattern шаблон строки.
-     * @param length длина строки.
+     * @param length  длина строки.
      * @return сгенерированная сторка.
      */
     public static String randomString(String pattern, int length) {

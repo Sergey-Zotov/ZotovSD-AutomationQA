@@ -1,88 +1,74 @@
 package zotov_sd.automation_qa.model.role;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import zotov_sd.automation_qa.model.Creatable;
-import zotov_sd.automation_qa.model.Entity;
+public enum Permissions {
 
-@NoArgsConstructor
-@Getter
-@Setter
-public class Permissions extends Entity implements Creatable<Permissions> {
+    ADD_PROJECT,
+    EDIT_PROJECT,
+    CLOSE_PROJECT,
+    SELECT_PROJECT_MODULES,
+    MANAGE_MEMBERS,
+    MANAGE_VERSIONS,
+    ADD_SUBPROJECTS,
+    MANAGE_PUBLIC_QUERIES,
+    SAVE_QUERIES,
+    VIEW_MESSAGES,
+    ADD_MESSAGES,
+    EDIT_MESSAGES,
+    EDIT_OWN_MESSAGES,
+    DELETE_MESSAGES,
+    DELETE_OWN_MESSAGES,
+    MANAGE_BOARDS,
+    VIEW_CALENDAR,
+    VIEW_DOCUMENTS,
+    ADD_DOCUMENTS,
+    EDIT_DOCUMENTS,
+    DELETE_DOCUMENTS,
+    VIEW_FILES,
+    MANAGE_FILES,
+    VIEW_GANTT,
+    VIEW_ISSUES,
+    ADD_ISSUES,
+    EDIT_ISSUES,
+    EDIT_OWN_ISSUES,
+    COPY_ISSUES,
+    MANAGE_ISSUE_RELATIONS,
+    MANAGE_SUBTASKS,
+    SET_ISSUES_PRIVATE,
+    SET_OWN_ISSUES_PRIVATE,
+    ADD_ISSUE_NOTES,
+    EDIT_ISSUE_NOTES,
+    EDIT_OWN_ISSUE_NOTES,
+    VIEW_PRIVATE_NOTES,
+    SET_NOTES_PRIVATE,
+    DELETE_ISSUES,
+    VIEW_ISSUE_WATCHERS,
+    ADD_ISSUE_WATCHERS,
+    DELETE_ISSUE_WATCHERS,
+    IMPORT_ISSUES,
+    MANAGE_CATEGORIES,
+    VIEW_NEWS,
+    MANAGE_NEWS,
+    COMMENT_NEWS,
+    VIEW_CHANGESETS,
+    BROWSE_REPOSITORY,
+    COMMIT_ACCESS,
+    MANAGE_RELATED_ISSUES,
+    MANAGE_REPOSITORY,
+    VIEW_TIME_ENTRIES,
+    LOG_TIME,
+    EDIT_TIME_ENTRIES,
+    EDIT_OWN_TIME_ENTRIES,
+    MANAGE_PROJECT_ACTIVITIES,
+    LOG_TIME_FOR_OTHER_USERS,
+    IMPORT_TIME_ENTRIES,
+    VIEW_WIKI_PAGES,
+    VIEW_WIKI_EDITS,
+    EXPORT_WIKI_PAGES,
+    EDIT_WIKI_PAGES,
+    RENAME_WIKI_PAGES,
+    DELETE_WIKI_PAGES,
+    DELETE_WIKI_PAGES_ATTACHMENTS,
+    PROTECT_WIKI_PAGES,
+    MANAGE_WIKI;
 
-    private Boolean addProject = false;
-    private Boolean editProject = false;
-    private Boolean closeProject = false;
-    private Boolean selectProjectModules = false;
-    private Boolean manageMembers = false;
-    private Boolean manageVersions = false;
-    private Boolean addSubProjects = false;
-    private Boolean managePublicQueries = false;
-    private Boolean saveQueries = false;
-    private Boolean viewMessages = false;
-    private Boolean addMessages = false;
-    private Boolean editMessages = false;
-    private Boolean editOwnMessages = false;
-    private Boolean deleteMessages = false;
-    private Boolean deleteOwnMessages = false;
-    private Boolean manageBoards = false;
-    private Boolean viewCalendar = false;
-    private Boolean viewDocuments = false;
-    private Boolean addDocuments = false;
-    private Boolean editDocuments = false;
-    private Boolean deleteDocuments = false;
-    private Boolean viewFiles = false;
-    private Boolean manageFiles = false;
-    private Boolean viewGantt = false;
-    private Boolean viewIssues = false;
-    private Boolean addIssues = false;
-    private Boolean editIssues = false;
-    private Boolean editOwnIssues = false;
-    private Boolean copyIssues = false;
-    private Boolean manageIssueRelations = false;
-    private Boolean manageSubtasks = false;
-    private Boolean setIssuesPrivate = false;
-    private Boolean setOwnIssuesPrivate = false;
-    private Boolean addIssueNotes = false;
-    private Boolean editIssueNotes = false;
-    private Boolean editOwnIssueNotes = false;
-    private Boolean viewPrivateNotes = false;
-    private Boolean setNotesPrivate = false;
-    private Boolean deleteIssues = false;
-    private Boolean viewIssueWatchers = false;
-    private Boolean addIssueWatchers = false;
-    private Boolean deleteIssueWatchers = false;
-    private Boolean importIssues = false;
-    private Boolean manageCategories = false;
-    private Boolean viewNews = false;
-    private Boolean manageNews = false;
-    private Boolean commentNews = false;
-    private Boolean viewChangesets = false;
-    private Boolean browseRepository = false;
-    private Boolean commitAccess = false;
-    private Boolean manageRelated_issues = false;
-    private Boolean manageRepository = false;
-    private Boolean viewTimeEntries = false;
-    private Boolean logTime = false;
-    private Boolean editTimeEntries = false;
-    private Boolean editOwnTimeEntries = false;
-    private Boolean manageProjectActivities = false;
-    private Boolean logTimeForOtherUsers = false;
-    private Boolean importTimeEntries = false;
-    private Boolean viewWikiPages = false;
-    private Boolean viewWikiEdits = false;
-    private Boolean exportWikiPages = false;
-    private Boolean editWikiPages = false;
-    private Boolean renameWikiPages = false;
-    private Boolean deleteWikiPages = false;
-    private Boolean deleteWikiPagesAttachments = false;
-    private Boolean protectWikiPages = false;
-    private Boolean manageWiki = false;
-
-    @Override
-    public Permissions create() {
-        // TODO: Реализовать с помощью SQL-Запроса
-        throw new UnsupportedOperationException();
-    }
 }

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 public enum UsersVisibility {
 
     ALL("Все активные пользователи"),
-    MEMBERS_OF_VISIBLE_PROJECTS("Участники видемых проектов");
+    MEMBERS_OF_VISIBLE_PROJECTS("Участники видимых проектов");
 
     public final String value;
 }
