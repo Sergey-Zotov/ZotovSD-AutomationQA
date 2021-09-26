@@ -3,8 +3,12 @@ package zotov_sd.automation_qa.model.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import zotov_sd.automation_qa.db.requests.UserRequests;
 import zotov_sd.automation_qa.model.Creatable;
 import zotov_sd.automation_qa.model.CreatableEntity;
+import zotov_sd.automation_qa.model.Deleteable;
+import zotov_sd.automation_qa.model.Updateable;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.role.Role;
 
@@ -20,7 +24,8 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomHexString;
 @NoArgsConstructor
 @Setter
 @Getter
-public class User extends CreatableEntity implements Creatable<User> {
+@Accessors(chain = true)
+public class User extends CreatableEntity implements Creatable<User>, Updateable<User>, Deleteable<User> {
 
     private String login = "ZSD" + randomEnglishString(10);
     private String password = "1qaz@WSX";
@@ -44,9 +49,10 @@ public class User extends CreatableEntity implements Creatable<User> {
     /**
      * При изменении пароля будет автоматически пересоздаваться hashedPassword.
      */
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
         this.hashedPassword = hashPassword();
+        return this;
     }
 
     /**
@@ -58,10 +64,23 @@ public class User extends CreatableEntity implements Creatable<User> {
 
     @Override
     public User create() {
-        // TODO: Реализовать с помощью SQL-Запроса
+        new UserRequests().create(this);
+        tokens.forEach(t -> t.setUserId(id));
         tokens.forEach(Token::create);
+        emails.forEach(e -> e.setUserId(id));
         emails.forEach(Email::create);
-        throw new UnsupportedOperationException();
+        return this;
+    }
+
+    public User delete() {
+        new UserRequests().delete(this.id);
+        return this;
+    }
+
+    @Override
+    public User update() {
+        new UserRequests().update(this.id, this);
+        return this;
     }
 
     public void addProject(Project project, List<Role> roles) {
