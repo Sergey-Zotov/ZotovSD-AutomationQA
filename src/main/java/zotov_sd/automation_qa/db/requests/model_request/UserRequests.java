@@ -1,6 +1,10 @@
-package zotov_sd.automation_qa.db.requests;
+package zotov_sd.automation_qa.db.requests.model_request;
 
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
+import zotov_sd.automation_qa.db.requests.BaseRequests;
+import zotov_sd.automation_qa.db.requests.Create;
+import zotov_sd.automation_qa.db.requests.Delete;
+import zotov_sd.automation_qa.db.requests.Update;
 import zotov_sd.automation_qa.model.user.User;
 
 public class UserRequests extends BaseRequests implements Create<User>, Update<User>, Delete {

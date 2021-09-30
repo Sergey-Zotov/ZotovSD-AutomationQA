@@ -1,8 +1,9 @@
-package zotov_sd.automation_qa.db.requests;
+package zotov_sd.automation_qa.db.requests.model_request;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
+import zotov_sd.automation_qa.db.requests.*;
 import zotov_sd.automation_qa.model.user.Email;
 import zotov_sd.automation_qa.model.user.User;
 

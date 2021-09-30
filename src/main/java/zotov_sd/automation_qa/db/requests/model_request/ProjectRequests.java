@@ -1,6 +1,7 @@
-package zotov_sd.automation_qa.db.requests;
+package zotov_sd.automation_qa.db.requests.model_request;
 
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
+import zotov_sd.automation_qa.db.requests.*;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.project.Status;
 

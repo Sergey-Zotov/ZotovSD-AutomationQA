@@ -3,7 +3,7 @@ package zotov_sd.automation_qa.model.user;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import zotov_sd.automation_qa.db.requests.TokenRequests;
+import zotov_sd.automation_qa.db.requests.model_request.TokenRequests;
 import zotov_sd.automation_qa.model.Creatable;
 import zotov_sd.automation_qa.model.CreatableEntity;
 

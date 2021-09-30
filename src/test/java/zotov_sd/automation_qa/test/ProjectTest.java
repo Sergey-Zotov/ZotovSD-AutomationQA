@@ -1,7 +1,7 @@
 package zotov_sd.automation_qa.test;
 
 import org.testng.annotations.Test;
-import zotov_sd.automation_qa.db.requests.ProjectRequests;
+import zotov_sd.automation_qa.db.requests.model_request.ProjectRequests;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.project.Status;
 

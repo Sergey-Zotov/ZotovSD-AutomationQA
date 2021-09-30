@@ -15,6 +15,7 @@ public class RoleTest {
         role.setName("ZSD_update");
         role.setId(1717);
         role.update();
+        role.delete();
     }
 
     @Test

@@ -1,6 +1,9 @@
-package zotov_sd.automation_qa.db.requests;
+package zotov_sd.automation_qa.db.requests.model_request;
 
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
+import zotov_sd.automation_qa.db.requests.Create;
+import zotov_sd.automation_qa.db.requests.Delete;
+import zotov_sd.automation_qa.db.requests.Update;
 import zotov_sd.automation_qa.model.role.Permissions;
 import zotov_sd.automation_qa.model.role.Role;
 
@@ -34,7 +37,7 @@ public class RoleRequest implements Create<Role>, Delete, Update<Role> {
         StringBuilder sb = new StringBuilder();
         sb.append("---\n");
         for (Permissions permissions : per) {
-            sb.append("- :" + permissions.toString().toLowerCase() + "\n");
+            sb.append("- :").append(permissions.toString().toLowerCase()).append("\n");
         }
         return sb.toString();
     }

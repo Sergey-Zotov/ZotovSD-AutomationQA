@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import zotov_sd.automation_qa.db.requests.UserRequests;
+import zotov_sd.automation_qa.db.requests.model_request.UserRequests;
 import zotov_sd.automation_qa.model.Creatable;
 import zotov_sd.automation_qa.model.CreatableEntity;
 import zotov_sd.automation_qa.model.Deleteable;

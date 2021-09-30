@@ -3,7 +3,7 @@ package zotov_sd.automation_qa.test;
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
-import zotov_sd.automation_qa.db.requests.EmailRequests;
+import zotov_sd.automation_qa.db.requests.model_request.EmailRequests;
 import zotov_sd.automation_qa.model.user.Email;
 import zotov_sd.automation_qa.model.user.User;
 

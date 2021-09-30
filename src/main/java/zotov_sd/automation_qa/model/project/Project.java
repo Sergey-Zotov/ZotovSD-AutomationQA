@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import zotov_sd.automation_qa.db.requests.ProjectRequests;
+import zotov_sd.automation_qa.db.requests.model_request.ProjectRequests;
 import zotov_sd.automation_qa.model.Readable;
 import zotov_sd.automation_qa.model.*;
 
