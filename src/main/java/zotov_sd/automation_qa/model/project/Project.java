@@ -3,15 +3,18 @@ package zotov_sd.automation_qa.model.project;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import zotov_sd.automation_qa.model.Creatable;
-import zotov_sd.automation_qa.model.CreatableEntity;
+import lombok.experimental.Accessors;
+import zotov_sd.automation_qa.db.requests.ProjectRequests;
+import zotov_sd.automation_qa.model.Readable;
+import zotov_sd.automation_qa.model.*;
 
 import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 
 @NoArgsConstructor
 @Setter
 @Getter
-public class Project extends CreatableEntity implements Creatable<Project> {
+@Accessors(chain = true)
+public class Project extends CreatableEntity implements Creatable<Project>, Deleteable<Project>, Readable<Project>, Updateable<Project> {
 
     private String name = "ZSD" + randomEnglishString(5);
     private String description = "ZSD" + randomEnglishString(5);
@@ -28,7 +31,24 @@ public class Project extends CreatableEntity implements Creatable<Project> {
 
     @Override
     public Project create() {
-        // TODO: Реализовать с помощью SQL-Запроса
-        throw new UnsupportedOperationException();
+        new ProjectRequests().create(this);
+        return this;
+    }
+
+    @Override
+    public Project delete() {
+        new ProjectRequests().delete(this.id);
+        return this;
+    }
+
+    @Override
+    public Project update() {
+        new ProjectRequests().update(this.id, this);
+        return this;
+    }
+
+    @Override
+    public Project read(Integer id) {
+        return new ProjectRequests().read(id);
     }
 }

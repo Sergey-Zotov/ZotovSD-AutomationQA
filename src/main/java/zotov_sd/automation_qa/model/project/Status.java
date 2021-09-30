@@ -9,4 +9,16 @@ public enum Status {
     CLOSED(5);
 
     public final Integer status;
+
+    public static Status fromInteger(int x) {
+        switch (x) {
+            case 1:
+                return OPEN;
+            case 5:
+                return ARCHIVED;
+            case 9:
+                return CLOSED;
+        }
+        return null;
+    }
 }
