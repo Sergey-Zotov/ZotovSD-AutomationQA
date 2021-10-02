@@ -73,7 +73,7 @@ public class SimpleDbConnectionTest {
         User user = new User();
         user.setId(9);
 
-        Email email = new EmailRequests(user).read(6);
+        Email email = new EmailRequests(user).read(1);
     }
 
     @Test

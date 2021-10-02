@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRequest;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRoleRequest;
 import zotov_sd.automation_qa.db.requests.model_request.UserRequests;
 import zotov_sd.automation_qa.model.Creatable;
 import zotov_sd.automation_qa.model.CreatableEntity;
@@ -45,6 +47,7 @@ public class User extends CreatableEntity implements Creatable<User>, Updateable
     private LocalDateTime passwordChangedOn;
     private List<Token> tokens = new ArrayList<>();
     private List<Email> emails = new ArrayList<>();
+    private Integer membersId;
 
     /**
      * При изменении пароля будет автоматически пересоздаваться hashedPassword.
@@ -84,7 +87,8 @@ public class User extends CreatableEntity implements Creatable<User>, Updateable
     }
 
     public void addProject(Project project, List<Role> roles) {
-        // TODO: Реализовать с помощью SQL-запроса
+        MemberRequest.create(project, this);
+        roles.forEach(role -> MemberRoleRequest.create(role, this));
     }
 
 }

@@ -29,6 +29,5 @@ public class RoleTest {
         );
         role.setPermissions(p);
         role.create();
-        role.delete();
     }
 }
