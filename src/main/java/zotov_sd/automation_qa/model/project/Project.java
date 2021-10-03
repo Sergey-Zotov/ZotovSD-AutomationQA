@@ -4,9 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRequest;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRoleRequest;
 import zotov_sd.automation_qa.db.requests.model_request.ProjectRequests;
 import zotov_sd.automation_qa.model.Readable;
 import zotov_sd.automation_qa.model.*;
+import zotov_sd.automation_qa.model.role.Role;
+import zotov_sd.automation_qa.model.user.User;
+
+import java.util.List;
 
 import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 
@@ -50,5 +56,10 @@ public class Project extends CreatableEntity implements Creatable<Project>, Dele
     @Override
     public Project read(Integer id) {
         return new ProjectRequests().read(id);
+    }
+
+    public void addUserWithRoles(User user, List<Role> roles) {
+        MemberRequest.create(this, user);
+        roles.forEach(role -> MemberRoleRequest.create(role, user));
     }
 }

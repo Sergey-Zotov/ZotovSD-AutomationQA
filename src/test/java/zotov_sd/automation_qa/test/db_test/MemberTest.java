@@ -11,7 +11,7 @@ import java.util.List;
 public class MemberTest {
 
     @Test
-    public void memberCreateTest() {
+    public void userAddProjectAndRoles() {
         Project project = new Project();
         User user = new User();
         Role role1 = new Role();
@@ -22,5 +22,19 @@ public class MemberTest {
         project.create();
         user.create();
         user.addProject(project, roles);
+    }
+
+    @Test
+    public void addUserWithRoles() {
+        Project project = new Project();
+        User user = new User();
+        Role role1 = new Role();
+        Role role2 = new Role();
+        role1.create();
+        role2.create();
+        List<Role> roles = Arrays.asList(role1, role2);
+        project.create();
+        user.create();
+        project.addUserWithRoles(user, roles);
     }
 }

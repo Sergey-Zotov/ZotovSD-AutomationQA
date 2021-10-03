@@ -4,21 +4,16 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum Status {
-    OPEN(1),
-    ARCHIVED(9),
-    CLOSED(5);
+    OPEN(10),
+    ARCHIVED(90),
+    CLOSED(50);
 
     public final Integer status;
 
-    public static Status fromInteger(int x) {
-        switch (x) {
-            case 1:
-                return OPEN;
-            case 5:
-                return ARCHIVED;
-            case 9:
-                return CLOSED;
+    public static Status fromInteger(Integer x) {
+        for (Status value : Status.values()) {
+            if (value.status.equals(x)) return value;
         }
-        return null;
+        throw new IllegalStateException("Данный Status код проекта не зарегистрирован, требуется обновить список Status кодов.");
     }
 }
