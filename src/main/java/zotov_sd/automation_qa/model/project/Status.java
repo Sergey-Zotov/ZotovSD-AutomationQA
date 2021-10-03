@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum Status {
-    OPEN(10),
-    ARCHIVED(90),
-    CLOSED(50);
+    OPEN(1),
+    ARCHIVED(9),
+    CLOSED(5);
 
     public final Integer status;
 
