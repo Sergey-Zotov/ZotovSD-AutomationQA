@@ -1,4 +1,4 @@
-package zotov_sd.automation_qa.test;
+package zotov_sd.automation_qa.test.db_test;
 
 import org.testng.annotations.Test;
 import zotov_sd.automation_qa.model.role.Permissions;
