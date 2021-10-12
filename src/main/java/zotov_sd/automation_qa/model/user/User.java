@@ -7,10 +7,8 @@ import lombok.experimental.Accessors;
 import zotov_sd.automation_qa.db.requests.model_request.MemberRequest;
 import zotov_sd.automation_qa.db.requests.model_request.MemberRoleRequest;
 import zotov_sd.automation_qa.db.requests.model_request.UserRequests;
-import zotov_sd.automation_qa.model.Creatable;
-import zotov_sd.automation_qa.model.CreatableEntity;
-import zotov_sd.automation_qa.model.Deleteable;
-import zotov_sd.automation_qa.model.Updateable;
+import zotov_sd.automation_qa.model.Readable;
+import zotov_sd.automation_qa.model.*;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.role.Role;
 
@@ -27,7 +25,7 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomHexString;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class User extends CreatableEntity implements Creatable<User>, Updateable<User>, Deleteable<User> {
+public class User extends CreatableEntity implements Creatable<User>, Readable<User>, Updateable<User>, Deleteable<User> {
 
     private String login = "ZSD" + randomEnglishString(10);
     private String password = "1qaz@WSX";
@@ -91,4 +89,8 @@ public class User extends CreatableEntity implements Creatable<User>, Updateable
         roles.forEach(role -> MemberRoleRequest.create(role, this));
     }
 
+    @Override
+    public User read(Integer id) {
+        return new UserRequests().read(id);
+    }
 }

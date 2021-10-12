@@ -9,6 +9,13 @@ public enum Status {
     UNACCEPTED(2),
     LOCKED(3);
 
-    public final int statusCode;
+    public final Integer statusCode;
+
+    public static Status fromInt(Integer x) {
+        for (Status value : Status.values()) {
+            if (value.statusCode.equals(x)) return value;
+        }
+        throw new IllegalStateException("Данный Status код проекта не зарегистрирован, требуется обновить список Status кодов.");
+    }
 
 }

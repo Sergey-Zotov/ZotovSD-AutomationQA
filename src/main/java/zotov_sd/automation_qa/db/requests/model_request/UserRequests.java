@@ -5,7 +5,11 @@ import zotov_sd.automation_qa.db.requests.BaseRequests;
 import zotov_sd.automation_qa.db.requests.Create;
 import zotov_sd.automation_qa.db.requests.Delete;
 import zotov_sd.automation_qa.db.requests.Update;
+import zotov_sd.automation_qa.model.user.Status;
 import zotov_sd.automation_qa.model.user.User;
+
+import java.util.List;
+import java.util.Map;
 
 public class UserRequests extends BaseRequests implements Create<User>, Update<User>, Delete {
 
@@ -75,5 +79,23 @@ public class UserRequests extends BaseRequests implements Create<User>, Update<U
                 user.getPasswordChangedOn(),
                 id
         );
+    }
+
+    public User read(Integer id) {
+        String query = "SELECT id, login, firstname, lastname, status, created_on\n" +
+                "FROM public.users\n" +
+                "WHERE id=?;\n";
+        List<Map<String, Object>> result = PostgresConnection.INSTANCE.executeQuery(query, id);
+        return from(result.get(0));
+    }
+
+    private User from(Map<String, Object> data) {
+        return (User) new User()
+                .setLogin((String) data.get("login"))
+                .setFirstName((String) data.get("firstname"))
+                .setLastName((String) data.get("lastname"))
+                .setStatus(Status.fromInt((Integer) data.get("status")))
+                .setCreatedOn(toLocalDate(data.get("created_on")))
+                .setId((Integer) data.get("id"));
     }
 }

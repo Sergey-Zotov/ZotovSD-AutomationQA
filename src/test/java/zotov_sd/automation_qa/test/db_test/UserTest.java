@@ -13,8 +13,10 @@ public class UserTest {
         user2.setPassword("qwriqwiqw");
         user2.setFirstName("Иван");
         user2.setLastName("Петров");
-       // user2.setTokens(Collections.singletonList(new Token()));
-       // user2.setEmails(Collections.singletonList(new Email()));
+    }
 
+    @Test
+    public void userReadTest() {
+        User user = new User().read(27372);
     }
 }
