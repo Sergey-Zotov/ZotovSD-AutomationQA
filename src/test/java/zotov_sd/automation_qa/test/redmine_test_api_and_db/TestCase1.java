@@ -39,7 +39,7 @@ public class TestCase1 {
     }
 
     @Test
-    public void create() {
+    public void userTest() {
 
         dto = new UserInfoDto(new UserDto().setStatus(2));
         oneStep(oneStepResponse(dto));
