@@ -36,6 +36,18 @@ public class TokenRequests extends BaseRequests implements Create<Token>, ReadAl
         token.setId(tokenId);
     }
 
+    public List<Token> readAllToken(User user) {
+        Integer userId = Objects.requireNonNull(user.getId());
+        String query = "SELECT * FROM tokens WHERE user_id = ?";
+        List<Map<String, Object>> queryResult = PostgresConnection.INSTANCE.executeQuery(
+                query,
+                userId
+        );
+        return queryResult.stream()
+                .map(data -> from(data, user))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<Token> readAll() {
         Integer userId = Objects.requireNonNull(user.getId());

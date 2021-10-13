@@ -19,7 +19,10 @@ public class UserDto {
 
     private Integer id;
 
-    private String login = "ZSD" + randomEnglishString(5);;
+    private String login = "ZSD" + randomEnglishString(5);
+    ;
+
+    private Boolean admin = false;
 
     @SerializedName("firstname")
     private String firstName = "ZSD" + randomEnglishString(5);
@@ -29,15 +32,16 @@ public class UserDto {
 
     private String mail = randomEmail();
 
-    private String password = "1qaz@WSX" + randomEnglishString(5);
-
-    private Boolean admin = false;
-
     @SerializedName("created_on")
     private LocalDateTime createdOn;
 
     @SerializedName("last_login_on")
     private LocalDateTime lastLoginOn;
+
+    private String password = "1qaz@WSX" + randomEnglishString(5);
+
+    @SerializedName("api_key")
+    private String apiKey;
 
     private Integer status;
 }

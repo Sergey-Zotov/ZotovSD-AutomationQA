@@ -82,11 +82,18 @@ public class UserRequests extends BaseRequests implements Create<User>, Update<U
     }
 
     public User read(Integer id) {
-        String query = "SELECT id, login, firstname, lastname, status, created_on\n" +
-                "FROM public.users\n" +
-                "WHERE id=?;\n";
-        List<Map<String, Object>> result = PostgresConnection.INSTANCE.executeQuery(query, id);
-        return from(result.get(0));
+        try {
+            String query = "SELECT id, login, firstname, lastname, status, created_on\n" +
+                    "FROM public.users\n" +
+                    "WHERE id=?;\n";
+            List<Map<String, Object>> result = PostgresConnection.INSTANCE.executeQuery(query, id);
+            User user = from(result.get(0));
+            new EmailRequests().readAllEmail(user);
+            new TokenRequests().readAllToken(user);
+            return user;
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     private User from(Map<String, Object> data) {
