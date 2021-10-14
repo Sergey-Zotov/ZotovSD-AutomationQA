@@ -81,7 +81,7 @@ public class SimpleDbConnectionTest {
         User user = new User();
         user.setId(7);
 
-        List<Email> emails = new EmailRequests(user).readAll();
+        List<Email> emails = new EmailRequests(user).readAll(user);
     }
 
     @Test

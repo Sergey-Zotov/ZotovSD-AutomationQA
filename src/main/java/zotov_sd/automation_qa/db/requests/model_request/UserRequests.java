@@ -88,8 +88,8 @@ public class UserRequests extends BaseRequests implements Create<User>, Update<U
                     "WHERE id=?;\n";
             List<Map<String, Object>> result = PostgresConnection.INSTANCE.executeQuery(query, id);
             User user = from(result.get(0));
-            new EmailRequests().readAllEmail(user);
-            new TokenRequests().readAllToken(user);
+            new EmailRequests().readAll(user);
+            new TokenRequests().readAll(user);
             return user;
         } catch (IndexOutOfBoundsException e) {
             return null;
