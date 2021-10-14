@@ -20,7 +20,6 @@ public class UserDto {
     private Integer id;
 
     private String login = "ZSD" + randomEnglishString(5);
-    ;
 
     private Boolean admin = false;
 

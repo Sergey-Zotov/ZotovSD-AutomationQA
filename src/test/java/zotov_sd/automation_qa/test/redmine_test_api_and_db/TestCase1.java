@@ -36,6 +36,7 @@ public class TestCase1 {
         }}.create();
 
         apiClient = new RestAssuredClient(Admin);
+
     }
 
     @Test
