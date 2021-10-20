@@ -2,3 +2,4 @@
 /.idea/
 ZotovSD-AutomationQA.iml
 /target/
+/src/test/resources/drivers

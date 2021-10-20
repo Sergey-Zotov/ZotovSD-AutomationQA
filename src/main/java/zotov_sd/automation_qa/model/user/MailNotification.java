@@ -2,6 +2,8 @@ package zotov_sd.automation_qa.model.user;
 
 import lombok.AllArgsConstructor;
 
+import java.util.stream.Stream;
+
 @AllArgsConstructor
 public enum MailNotification {
     ALL("О всех событиях во всех моих проектах"),
@@ -12,4 +14,10 @@ public enum MailNotification {
 
     private final String description;
 
+    public static MailNotification of(String description) {
+        return Stream.of(values())
+                .filter(mailNotification -> mailNotification.description.equals(description))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не найден объект enum MailNotification"));
+    }
 }
