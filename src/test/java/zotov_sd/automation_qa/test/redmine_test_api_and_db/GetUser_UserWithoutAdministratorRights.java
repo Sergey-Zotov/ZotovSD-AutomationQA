@@ -14,9 +14,9 @@ import zotov_sd.automation_qa.model.user.User;
 
 import java.util.Arrays;
 
-import static zotov_sd.automation_qa.api.client.RestMethod.DELETE;
+import static zotov_sd.automation_qa.api.client.RestMethod.GET;
 
-public class TestCase4 {
+public class GetUser_UserWithoutAdministratorRights {
 
     private RestApiClient apiClient;
     private RestRequest request;
@@ -33,20 +33,27 @@ public class TestCase4 {
     }
 
     @Test
-    public void deleteUser2Test() {
+    public void getUser1Test() {
         apiClient = new RestAssuredClient(user1);
-        request = new RestAssuredRequest(DELETE, "/users/" + user2.getId() + ".json", null, null, null);
+        request = new RestAssuredRequest(GET, "/users/" + user1.getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
-        Assert.assertEquals(response.getStatusCode(), 403);
-        Assert.assertNotNull(new User().read(user2.getId()));
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(contains(response, "admin"));
+        Assert.assertTrue(contains(response, "api_key"));
     }
 
     @Test
-    public void deleteUser1Test() {
+    public void getUser2Test() {
         apiClient = new RestAssuredClient(user1);
-        request = new RestAssuredRequest(DELETE, "/users/" + user1.getId() + ".json", null, null, null);
+        request = new RestAssuredRequest(GET, "/users/" + user2.getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
-        Assert.assertEquals(response.getStatusCode(), 403);
-        Assert.assertNotNull(new User().read(user1.getId()));
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertFalse(contains(response, "admin"));
+        Assert.assertFalse(contains(response, "api_key"));
+    }
+
+    private Boolean contains(RestResponse response, String value) {
+        String res = response.getPayload();
+        return res.contains(value);
     }
 }

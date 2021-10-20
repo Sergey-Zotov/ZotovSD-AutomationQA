@@ -18,7 +18,7 @@ import java.util.Arrays;
 import static zotov_sd.automation_qa.api.client.RestMethod.POST;
 import static zotov_sd.automation_qa.api.rest_assured.GsonProvider.GSON;
 
-public class TestCase2 {
+public class CreateUser_UserWithoutAdministratorRights {
 
     private RestApiClient apiClient;
     private RestRequest request;

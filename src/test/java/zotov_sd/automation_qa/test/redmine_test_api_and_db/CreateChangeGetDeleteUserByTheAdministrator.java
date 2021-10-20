@@ -19,7 +19,7 @@ import java.util.Arrays;
 import static zotov_sd.automation_qa.api.client.RestMethod.*;
 import static zotov_sd.automation_qa.api.rest_assured.GsonProvider.GSON;
 
-public class TestCase1 {
+public class CreateChangeGetDeleteUserByTheAdministrator {
 
     private RestApiClient apiClient;
     private RestRequest request;
