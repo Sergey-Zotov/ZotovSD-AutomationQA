@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import zotov_sd.automation_qa.api.client.RestApiClient;
 import zotov_sd.automation_qa.api.client.RestRequest;
 import zotov_sd.automation_qa.api.client.RestResponse;
+import zotov_sd.automation_qa.api.dto.users.UserDto;
+import zotov_sd.automation_qa.api.dto.users.UserInfoDto;
 import zotov_sd.automation_qa.api.rest_assured.RestAssuredClient;
 import zotov_sd.automation_qa.api.rest_assured.RestAssuredRequest;
 import zotov_sd.automation_qa.model.user.Email;
@@ -14,39 +16,29 @@ import zotov_sd.automation_qa.model.user.User;
 
 import java.util.Arrays;
 
-import static zotov_sd.automation_qa.api.client.RestMethod.DELETE;
+import static zotov_sd.automation_qa.api.client.RestMethod.POST;
+import static zotov_sd.automation_qa.api.rest_assured.GsonProvider.GSON;
 
-public class DeleteUser_UserWithoutAdministratorRights {
+public class CreateUserWithoutAdministratorRights {
 
     private RestApiClient apiClient;
     private RestRequest request;
-    private User user1;
-    private User user2;
 
     @BeforeMethod
     public void prepareFixtures() {
-        user1 = new User() {{
-            setEmails(Arrays.asList(new Email(this)));
+        User user = new User() {{
+            setEmails(Arrays.asList(new Email(this), new Email(this)));
             setTokens(Arrays.asList(new Token(this)));
         }}.create();
-        user2 = new User().create();
+
+        apiClient = new RestAssuredClient(user);
+        String body = GSON.toJson(new UserInfoDto(new UserDto()));
+        request = new RestAssuredRequest(POST, "/users.json", null, null, body);
     }
 
     @Test
-    public void deleteUser2Test() {
-        apiClient = new RestAssuredClient(user1);
-        request = new RestAssuredRequest(DELETE, "/users/" + user2.getId() + ".json", null, null, null);
+    public void failCreateUserTest() {
         RestResponse response = apiClient.execute(request);
         Assert.assertEquals(response.getStatusCode(), 403);
-        Assert.assertNotNull(new User().read(user2.getId()));
-    }
-
-    @Test
-    public void deleteUser1Test() {
-        apiClient = new RestAssuredClient(user1);
-        request = new RestAssuredRequest(DELETE, "/users/" + user1.getId() + ".json", null, null, null);
-        RestResponse response = apiClient.execute(request);
-        Assert.assertEquals(response.getStatusCode(), 403);
-        Assert.assertNotNull(new User().read(user1.getId()));
     }
 }

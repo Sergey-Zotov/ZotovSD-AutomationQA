@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import zotov_sd.automation_qa.api.client.RestApiClient;
 import zotov_sd.automation_qa.api.client.RestRequest;
 import zotov_sd.automation_qa.api.client.RestResponse;
+import zotov_sd.automation_qa.api.dto.users.ErrorInfoDto;
 import zotov_sd.automation_qa.api.dto.users.UserDto;
 import zotov_sd.automation_qa.api.dto.users.UserInfoDto;
 import zotov_sd.automation_qa.api.rest_assured.RestAssuredClient;
@@ -43,21 +44,21 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     public void userTest() {
 
         dto = new UserInfoDto(new UserDto().setStatus(2));
-        oneStep(oneStepResponse(dto));
+        postUser(postResponse(dto));
 
-        twoStep(twoStepResponse(dto));
+        repeatedPostUser(postResponse(dto));
 
         dto = new UserInfoDto(new UserDto().setMail("zotmail.ru").setPassword("1Qa@"));
-        threeStep(threeStepResponse(dto));
+        repeatedPostUserNoValidEmailAndPassword(postResponse(dto));
 
         userResponse.getUser().setStatus(1).setCreatedOn(null);
-        fourStep(fourStepResponse(userResponse));
+        putUser(putResponse(userResponse));
 
-        fiveStep(fiveStepResponse(userResponse));
+        getUser(getResponse(userResponse));
 
-        sixStepResponse(userResponse);
+        deleteUserResponse(userResponse);
 
-        sevenStepResponse(userResponse);
+        repeatedDeleteUserResponse(userResponse);
     }
 
     private void compare() {
@@ -77,13 +78,13 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         Assert.assertEquals(userResponse.getUser().getApiKey(), userDB.getTokens().get(0).getValue());
     }
 
-    private RestResponse oneStepResponse(UserInfoDto dto) {
+    private RestResponse postResponse(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(POST, "/users.json", null, null, body);
         return apiClient.execute(request);
     }
 
-    private void oneStep(RestResponse response) {
+    private void postUser(RestResponse response) {
         userResponse = response.getPayload(UserInfoDto.class);
         userDB = new User().read(userResponse.getUser().getId());
         Assert.assertEquals(userResponse.getUser().getStatus().intValue(), 2);
@@ -91,35 +92,26 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         compare();
     }
 
-    private RestResponse twoStepResponse(UserInfoDto dto) {
-        String body = GSON.toJson(dto);
-        request = new RestAssuredRequest(POST, "/users.json", null, null, body);
-        return apiClient.execute(request);
-    }
-
-    private void twoStep(RestResponse response) {
+    private void repeatedPostUser(RestResponse response) {
+        ErrorInfoDto repeated = response.getPayload(ErrorInfoDto.class);
+        Assert.assertEquals(repeated.getErrors().get(0), "Email уже существует");
+        Assert.assertEquals(repeated.getErrors().get(1), "Пользователь уже существует");
         Assert.assertEquals(response.getStatusCode(), 422);
         Assert.assertEquals(response.getPayload(), "{\"errors\":[\"Email уже существует\",\"Пользователь уже существует\"]}");
     }
 
-    private RestResponse threeStepResponse(UserInfoDto dto) {
-        String body = GSON.toJson(dto);
-        request = new RestAssuredRequest(POST, "/users.json", null, null, body);
-        return apiClient.execute(request);
-    }
-
-    private void threeStep(RestResponse response) {
+    private void repeatedPostUserNoValidEmailAndPassword(RestResponse response) {
         Assert.assertEquals(response.getStatusCode(), 422);
         Assert.assertEquals(response.getPayload(), "{\"errors\":[\"Email имеет неверное значение\",\"Пароль недостаточной длины (не может быть меньше 8 символа)\"]}");
     }
 
-    private RestResponse fourStepResponse(UserInfoDto dto) {
+    private RestResponse putResponse(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(PUT, "/users/" + dto.getUser().getId() + ".json", null, null, body);
         return apiClient.execute(request);
     }
 
-    private void fourStep(RestResponse response) {
+    private void putUser(RestResponse response) {
         Assert.assertEquals(response.getStatusCode(), 204);
         Assert.assertNotNull(userResponse.getUser().getStatus());
         Assert.assertEquals(userResponse.getUser().getStatus().intValue(), 1);
@@ -127,12 +119,12 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         Assert.assertEquals(userDB.getStatus().statusCode.intValue(), 1);
     }
 
-    private RestResponse fiveStepResponse(UserInfoDto dto) {
+    private RestResponse getResponse(UserInfoDto dto) {
         request = new RestAssuredRequest(GET, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         return apiClient.execute(request);
     }
 
-    private void fiveStep(RestResponse response) {
+    private void getUser(RestResponse response) {
         userResponse = response.getPayload(UserInfoDto.class);
         userDB = new User().read(userResponse.getUser().getId());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -140,7 +132,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         compare();
     }
 
-    private void sixStepResponse(UserInfoDto dto) {
+    private void deleteUserResponse(UserInfoDto dto) {
         Integer id = dto.getUser().getId();
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
@@ -148,7 +140,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         Assert.assertNull(userDB = new User().read(id));
     }
 
-    private void sevenStepResponse(UserInfoDto dto) {
+    private void repeatedDeleteUserResponse(UserInfoDto dto) {
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
         Assert.assertEquals(response.getStatusCode(), 404);
