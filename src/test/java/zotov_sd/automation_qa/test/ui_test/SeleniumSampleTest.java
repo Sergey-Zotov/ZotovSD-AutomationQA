@@ -23,8 +23,6 @@ public class SeleniumSampleTest {
         element.sendKeys("I-Teco");
         element.submit();
 
-
-
         Thread.sleep(5000);
 
         driver.quit();

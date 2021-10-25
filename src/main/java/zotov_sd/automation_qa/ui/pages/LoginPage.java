@@ -1,9 +1,12 @@
 package zotov_sd.automation_qa.ui.pages;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import zotov_sd.automation_qa.model.user.User;
 
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class LoginPage extends Page {
 
     @FindBy(xpath = "//input[@id='username']")
@@ -17,10 +20,6 @@ public class LoginPage extends Page {
 
     @FindBy(xpath = "//div[@id='flash_error']")
     public WebElement errorFlash;
-
-    public LoginPage() {
-        super();
-    }
 
     public void login(String login, String password) {
         loginInput.sendKeys(login);
