@@ -13,6 +13,7 @@ public class MemberTest {
     @Test
     public void userAddProjectAndRoles() {
         Project project = new Project();
+        project.setIsPublic(true);
         User user = new User();
         Role role1 = new Role();
         Role role2 = new Role();

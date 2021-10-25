@@ -22,8 +22,8 @@ import static zotov_sd.automation_qa.utils.StringUtils.randomEnglishString;
 @Accessors(chain = true)
 public class Project extends CreatableEntity implements Creatable<Project>, Deleteable<Project>, Readable<Project>, Updateable<Project> {
 
-    private String name = "ZSD" + randomEnglishString(5);
-    private String description = "ZSD" + randomEnglishString(5);
+    private String name = "ZSD" + randomEnglishString(15);
+    private String description = "ZSD" + randomEnglishString(15);
     private String homepage = "ZSD.com";
     private Boolean isPublic = false;
     private Integer parentId;

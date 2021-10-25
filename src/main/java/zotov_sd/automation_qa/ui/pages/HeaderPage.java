@@ -14,22 +14,22 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//div[@id='account']//a[@class='my-account']")
     public WebElement myAccount;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]/ul/li[1]/a")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"home\"]")
     public WebElement myHomepage;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]/ul/li[2]/a")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"my-page\"]")
     public WebElement myPage;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]/ul/li[3]/a")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"projects\"]")
     public WebElement projects;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]/ul/li[4]/a")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"administration\"]")
     public WebElement administration;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]/ul/li[5]/a")
+    @FindBy(xpath = "///*[@id=\"top-menu\"]//a[@class=\"help\"]")
     public WebElement help;
 
-    @FindBy(xpath = "//*[@id=\"account\"]/ul/li[2]/a")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"logout\"]")
     public WebElement out;
 
     @FindBy(xpath = "//*[@id='account']//a[@class='login']")
@@ -46,5 +46,8 @@ public class HeaderPage extends Page {
 
     @FindBy(xpath = "//*[@id=\"q\"]")
     public WebElement search;
+
+    @FindBy(xpath = "//*[@id=\"content\"]")
+    public WebElement content;
 
 }
