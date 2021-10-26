@@ -51,7 +51,7 @@ public class VisibilityProjectsUser extends BaseUITest {
 
         Assert.assertTrue(headerPage.content.isDisplayed());
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
-        
+
         headerPage.projects.click();
         Assert.assertTrue(BrowserUtils.isProjectDisplayed(project1.getId()));
         Assert.assertFalse(BrowserUtils.isProjectDisplayed(project2.getId()));

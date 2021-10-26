@@ -21,8 +21,21 @@ public class UserTablePage extends Page {
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='username']")
     public List<WebElement> userNameList;
 
+    @FindBy(xpath = "//table[@class='list users']//a[.=\"Имя\"]")
+    public WebElement firstName;
+
+    @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='firstname']")
+    public List<WebElement> firstNameList;
+
+    @FindBy(xpath = "//table[@class='list users']//a[.=\"Фамилия\"]")
+    public WebElement lastName;
+
+    @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='lastname']")
+    public List<WebElement> lastNameList;
+
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='created_on']")
     public List<WebElement> creationDates;
+
 
     public WebElement button(String text) {
         return BrowserManager.getBrowser().getDriver().findElement(By.xpath("//table[@class='list users']/thead//th[.='" + text + "']"));
