@@ -30,10 +30,13 @@ public class AuthorizationConfirmedUser extends BaseUITest {
     public void ConfirmedUserLoginTest() {
         headerPage.logIn.click();
         loginPage.login(user);
+
         Assert.assertTrue(headerPage.content.isDisplayed());
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+
         Assert.assertTrue(headerPage.enteredAs.isDisplayed());
         Assert.assertEquals(headerPage.enteredAs.getText(), "Вошли как " + user.getLogin());
+
         Assert.assertTrue(headerPage.pageTitle.isDisplayed());
         Assert.assertEquals(headerPage.pageTitle.getText(), "Моя учётная запись\n" +
                 "Выйти\n" +
@@ -42,12 +45,16 @@ public class AuthorizationConfirmedUser extends BaseUITest {
                 "Моя страница\n" +
                 "Проекты\n" +
                 "Помощь");
+
         Assert.assertFalse(isElementDisplayed(headerPage.logIn));
         Assert.assertFalse(headerPage.pageTitle.getText().contains("Войти"));
+
         Assert.assertFalse(isElementDisplayed(headerPage.registration));
         Assert.assertFalse(headerPage.pageTitle.getText().contains("Регистрация"));
+
         Assert.assertFalse(isElementDisplayed(headerPage.administration));
         Assert.assertFalse(headerPage.pageTitle.getText().contains("Администрирование"));
+
         Assert.assertTrue(headerPage.search.isDisplayed());
     }
 }

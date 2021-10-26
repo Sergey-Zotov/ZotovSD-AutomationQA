@@ -7,10 +7,12 @@ import zotov_sd.automation_qa.model.project.Status;
 
 public class ProjectTest {
 
+
+
     @Test
     void projectRequestReadTest() {
-
-        Project project = new ProjectRequests().read(1);
+        Project project = new Project().create();
+        Project projectRead = new ProjectRequests().read(project.getId());
     }
 
     @Test

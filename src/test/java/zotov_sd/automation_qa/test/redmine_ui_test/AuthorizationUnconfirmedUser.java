@@ -26,11 +26,15 @@ public class AuthorizationUnconfirmedUser extends BaseUITest {
     @Test
     public void ConfirmedUserLoginTest() throws InterruptedException {
         loginPage.login(user);
+
         Assert.assertTrue(loginPage.errorFlash.isDisplayed());
         Assert.assertEquals(loginPage.errorFlash.getText(), "Ваша учётная запись создана и ожидает подтверждения администратора.");
+
         Assert.assertFalse(isElementDisplayed(headerPage.myPage));
+
         Assert.assertTrue(headerPage.logIn.isDisplayed());
         Assert.assertEquals(headerPage.logIn.getText(), "Войти");
+
         Assert.assertTrue(headerPage.registration.isDisplayed());
         Assert.assertEquals(headerPage.registration.getText(), "Регистрация");
     }

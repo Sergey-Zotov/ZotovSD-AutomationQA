@@ -31,11 +31,14 @@ public class PrivateProjectVisibility extends BaseUITest {
     public void SearchProjectAdministratorTest() {
         headerPage.logIn.click();
         loginPage.login(admin);
+
         Assert.assertTrue(headerPage.content.isDisplayed());
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+
         headerPage.projects.click();
         Assert.assertTrue(projectTablePage.projectsSelected.isDisplayed());
         Assert.assertEquals(projectTablePage.projectsSelected.getText(), "Проекты");
+
         projectTablePage.projectStatus.click();
         projectTablePage.statusClosed.click();
         projectTablePage.applying.click();

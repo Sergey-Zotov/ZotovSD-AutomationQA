@@ -12,6 +12,15 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class UserTablePage extends Page {
 
+    @FindBy(xpath = "//*[@id=\"main\"]//div[@id=\"content\"]/h2")
+    public WebElement content;
+
+    @FindBy(xpath = "//table[@class='list users']//a[@class=\"sort asc icon icon-sorted-desc\"]")
+    public WebElement users;
+
+    @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='username']")
+    public List<WebElement> userNameList;
+
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='created_on']")
     public List<WebElement> creationDates;
 

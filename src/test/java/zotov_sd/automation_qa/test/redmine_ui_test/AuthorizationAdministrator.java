@@ -25,10 +25,13 @@ public class AuthorizationAdministrator extends BaseUITest {
     public void AdminLoginTest() {
         headerPage.logIn.click();
         loginPage.login(admin);
+
         Assert.assertTrue(headerPage.content.isDisplayed());
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+
         Assert.assertTrue(headerPage.enteredAs.isDisplayed());
         Assert.assertEquals(headerPage.enteredAs.getText(), "Вошли как " + admin.getLogin());
+
         Assert.assertTrue(headerPage.pageTitle.isDisplayed());
         Assert.assertEquals(headerPage.pageTitle.getText(), "Моя учётная запись\n" +
                 "Выйти\n" +
@@ -38,10 +41,13 @@ public class AuthorizationAdministrator extends BaseUITest {
                 "Проекты\n" +
                 "Администрирование\n" +
                 "Помощь");
+
         Assert.assertFalse(isElementDisplayed(headerPage.logIn));
         Assert.assertFalse(headerPage.pageTitle.getText().contains("Войти"));
+
         Assert.assertFalse(isElementDisplayed(headerPage.registration));
         Assert.assertFalse(headerPage.pageTitle.getText().contains("Регистрация"));
+
         Assert.assertTrue(headerPage.search.isDisplayed());
     }
 }
