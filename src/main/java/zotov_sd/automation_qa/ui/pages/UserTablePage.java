@@ -36,6 +36,9 @@ public class UserTablePage extends Page {
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='created_on']")
     public List<WebElement> creationDates;
 
+    @FindBy(xpath = "//*[@id=\"content\"]//a[@class=\"icon icon-add\"]")
+    public WebElement newUser;
+
 
     public WebElement button(String text) {
         return BrowserManager.getBrowser().getDriver().findElement(By.xpath("//table[@class='list users']/thead//th[.='" + text + "']"));

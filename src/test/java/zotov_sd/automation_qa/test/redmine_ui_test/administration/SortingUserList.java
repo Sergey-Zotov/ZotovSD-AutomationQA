@@ -7,7 +7,8 @@ public class SortingUserList extends Admin {
 
     @BeforeMethod
         public void prepareFixtures() {
-            createAdminAndUsers();
+            createAdmin();
+            createUsers();
             openBrowser();
         }
 

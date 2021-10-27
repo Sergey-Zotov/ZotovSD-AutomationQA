@@ -13,11 +13,13 @@ public class Admin extends BaseUITest {
 
     private User admin;
 
-    protected void createAdminAndUsers() {
+    protected void createAdmin() {
         admin = new User() {{
             setIsAdmin(true);
         }}.create();
+    }
 
+    protected void createUsers() {
         User user1 = new User().create();
         User user2 = new User().create();
         User user3 = new User().create();

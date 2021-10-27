@@ -13,6 +13,7 @@ public class BaseUITest {
     protected AdministrationPage administrationPage;
     protected UserTablePage userTablePage;
     protected ProjectTablePage projectTablePage;
+    protected CreateUserPage createUserPage;
 
     protected void openBrowser() {
         browser = BrowserManager.getBrowser();
@@ -30,6 +31,7 @@ public class BaseUITest {
         administrationPage = Page.getPage(AdministrationPage.class);
         userTablePage = Page.getPage(UserTablePage.class);
         projectTablePage = Page.getPage(ProjectTablePage.class);
+        createUserPage = Page.getPage(CreateUserPage.class);
     }
 
     @AfterMethod
