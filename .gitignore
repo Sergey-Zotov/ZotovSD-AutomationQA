@@ -3,3 +3,4 @@
 ZotovSD-AutomationQA.iml
 /target/
 /src/test/resources/drivers
+/src/test/java/zotov_sd/automation_qa/lesson_test

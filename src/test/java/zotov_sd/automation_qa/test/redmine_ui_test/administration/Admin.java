@@ -2,8 +2,8 @@ package zotov_sd.automation_qa.test.redmine_ui_test.administration;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import zotov_sd.automation_qa.lesson_test.ui_test.BaseUITest;
 import zotov_sd.automation_qa.model.user.User;
-import zotov_sd.automation_qa.test.ui_test.BaseUITest;
 import zotov_sd.automation_qa.ui.browser.BrowserUtils;
 import zotov_sd.automation_qa.utils.CompareUtils;
 

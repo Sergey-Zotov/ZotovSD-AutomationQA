@@ -1,4 +1,4 @@
-package zotov_sd.automation_qa.test.db_test;
+package zotov_sd.automation_qa.lesson_test.db_test;
 
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;

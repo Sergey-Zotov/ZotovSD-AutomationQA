@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.db.requests.model_request;
 
+import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
@@ -37,6 +38,7 @@ public class TokenRequests extends BaseRequests implements Create<Token>, ReadAl
     }
 
     @Override
+    @Step("Получен список токенов пользователя из БД")
     public List<Token> readAll(User user) {
         Integer userId = Objects.requireNonNull(user.getId());
         String query = "SELECT * FROM tokens WHERE user_id = ?";

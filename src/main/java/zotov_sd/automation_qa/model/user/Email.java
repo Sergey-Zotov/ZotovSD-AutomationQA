@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.model.user;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -25,6 +26,7 @@ public class Email extends CreatableEntity implements Creatable<Email> {
     }
 
     @Override
+    @Step("Создана Email в БД")
     public Email create() {
         new EmailRequests().create(this);
         return this;

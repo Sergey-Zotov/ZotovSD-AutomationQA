@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.model.project;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,28 +37,33 @@ public class Project extends CreatableEntity implements Creatable<Project>, Dele
     private Integer defaultAssignedToId = null;
 
     @Override
+    @Step("Создан проект в БД")
     public Project create() {
         new ProjectRequests().create(this);
         return this;
     }
 
     @Override
+    @Step("Удален проект в БД")
     public Project delete() {
         new ProjectRequests().delete(this.id);
         return this;
     }
 
     @Override
+    @Step("Обновлен проект в БД")
     public Project update() {
         new ProjectRequests().update(this.id, this);
         return this;
     }
 
     @Override
+    @Step("Получен проект из БД по id={0}")
     public Project read(Integer id) {
         return new ProjectRequests().read(id);
     }
 
+    @Step("К проекту добавлен пользавтель с ролями")
     public void addUserWithRoles(User user, List<Role> roles) {
         MemberRequest.create(this, user);
         roles.forEach(role -> MemberRoleRequest.create(role, user));

@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.model.user;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -64,6 +65,7 @@ public class User extends CreatableEntity implements Creatable<User>, Readable<U
     }
 
     @Override
+    @Step("Создан пользователь в БД")
     public User create() {
         new UserRequests().create(this);
         tokens.forEach(t -> t.setUserId(id));
@@ -73,23 +75,26 @@ public class User extends CreatableEntity implements Creatable<User>, Readable<U
         return this;
     }
 
+    @Step("Удален пользователь в БД")
     public User delete() {
         new UserRequests().delete(this.id);
         return this;
     }
-
+    @Step("Обнавлен пользователь в БД")
     @Override
     public User update() {
         new UserRequests().update(this.id, this);
         return this;
     }
 
+    @Step("Пользователю добавлен в проект с ролями")
     public void addProject(Project project, List<Role> roles) {
         MemberRequest.create(project, this);
         roles.forEach(role -> MemberRoleRequest.create(role, this));
     }
 
     @Override
+    @Step("Получен пользователь из БД")
     public User read(Integer id) {
         return new UserRequests().read(id);
     }

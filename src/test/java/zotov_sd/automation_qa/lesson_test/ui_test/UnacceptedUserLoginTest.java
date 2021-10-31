@@ -1,4 +1,4 @@
-package zotov_sd.automation_qa.test.ui_test;
+package zotov_sd.automation_qa.lesson_test.ui_test;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

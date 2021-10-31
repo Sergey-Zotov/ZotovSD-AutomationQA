@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.model.role;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,18 +35,21 @@ public class Role extends Entity implements Creatable<Role>, Deleteable<Role>, U
     private Settings settings = new Settings();
 
     @Override
+    @Step("Создана роль в БД")
     public Role create() {
         new RoleRequest().create(this);
         return this;
     }
 
     @Override
+    @Step("Удалена роль в БД")
     public Role delete() {
         new RoleRequest().delete(this.id);
         return this;
     }
 
     @Override
+    @Step("Обнавлена роль в БД")
     public Role update() {
         new RoleRequest().update(this.id, this);
         return this;

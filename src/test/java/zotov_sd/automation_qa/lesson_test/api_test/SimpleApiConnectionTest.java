@@ -1,4 +1,4 @@
-package zotov_sd.automation_qa.test.api_test;
+package zotov_sd.automation_qa.lesson_test.api_test;
 
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;

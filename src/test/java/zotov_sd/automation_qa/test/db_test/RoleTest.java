@@ -1,5 +1,8 @@
 package zotov_sd.automation_qa.test.db_test;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import zotov_sd.automation_qa.model.role.Permissions;
 import zotov_sd.automation_qa.model.role.Role;
@@ -9,7 +12,9 @@ import java.util.List;
 
 public class RoleTest {
 
-    @Test
+    @Test(description = "Обновление роли")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     public void roleUpdate() {
         Role role = new Role();
         role.setName("ZSD_update");
@@ -18,7 +23,9 @@ public class RoleTest {
         role.delete();
     }
 
-    @Test
+    @Test(description = "Создание роли")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     public void roleTest() {
         Role role = new Role();
         List<Permissions> p = Arrays.asList(

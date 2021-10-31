@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.ui.browser;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class BrowserUtils {
                 .collect(Collectors.toList());
     }
 
+    @Step("Проверка отображения елемента {0} на странице")
     public static boolean isElementDisplayed(WebElement element) {
         try {
             BrowserManager.getBrowser().getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -28,6 +30,7 @@ public class BrowserUtils {
         }
     }
 
+    @Step("Проверка отображения проекта с id={0} на странице")
     public static Boolean isProjectDisplayed(Integer id) throws NoSuchElementException {
         try {
             BrowserManager.getBrowser().getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -38,5 +41,10 @@ public class BrowserUtils {
         } finally {
             BrowserManager.getBrowser().getDriver().manage().timeouts().implicitlyWait(Property.getIntegerProperty("element.timeout"), TimeUnit.SECONDS);
         }
+    }
+
+    @Step("Нажимаю на элемент {1}")
+    public static void click(WebElement element, String description) {
+        element.click();
     }
 }

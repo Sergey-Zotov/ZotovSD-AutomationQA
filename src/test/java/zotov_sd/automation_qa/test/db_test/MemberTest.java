@@ -1,5 +1,8 @@
 package zotov_sd.automation_qa.test.db_test;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.role.Role;
@@ -10,7 +13,9 @@ import java.util.List;
 
 public class MemberTest {
 
-    @Test
+    @Test(description = "Добавление пользователя с ролями в проект")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     public void userAddProjectAndRoles() {
         Project project = new Project();
         project.setIsPublic(true);
@@ -25,7 +30,9 @@ public class MemberTest {
         user.addProject(project, roles);
     }
 
-    @Test
+    @Test(description = "Добавление в проект пользователя с ролями")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     public void addUserWithRoles() {
         Project project = new Project();
         User user = new User();

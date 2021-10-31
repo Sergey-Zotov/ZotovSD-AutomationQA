@@ -1,7 +1,9 @@
 package zotov_sd.automation_qa.test.db_test;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
-import zotov_sd.automation_qa.db.requests.model_request.ProjectRequests;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.project.Status;
 
@@ -9,13 +11,17 @@ public class ProjectTest {
 
 
 
-    @Test
+    @Test(description = "Создание проекта, и получение его из БД по id")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     void projectRequestReadTest() {
         Project project = new Project().create();
-        Project projectRead = new ProjectRequests().read(project.getId());
+        Project projectRead = new Project().read(project.getId());
     }
 
-    @Test
+    @Test(description = "Создание, обновление и удаление проекта")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     void projectRequestTest() {
         Project project = new Project();
         project.create();

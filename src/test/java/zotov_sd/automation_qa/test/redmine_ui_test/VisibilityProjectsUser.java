@@ -3,11 +3,11 @@ package zotov_sd.automation_qa.test.redmine_ui_test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import zotov_sd.automation_qa.lesson_test.ui_test.BaseUITest;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.role.Permissions;
 import zotov_sd.automation_qa.model.role.Role;
 import zotov_sd.automation_qa.model.user.User;
-import zotov_sd.automation_qa.test.ui_test.BaseUITest;
 import zotov_sd.automation_qa.ui.browser.BrowserUtils;
 
 import java.util.Collections;

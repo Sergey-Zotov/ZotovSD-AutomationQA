@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.utils;
 
+import io.qameta.allure.Step;
 import org.testng.Assert;
 
 import java.time.LocalDateTime;
@@ -23,30 +24,35 @@ public class CompareUtils {
 
     private static final Comparator<String> USER_ASC_COMPARATOR = USER_DESC_COMPARATOR.reversed();
 
+    @Step("Проверка сортировки списка дат по убыванию")
     public static void assertListSortedByDateDesc(List<String> dates) {
         List<String> datesCopy = new ArrayList<>(dates);
         datesCopy.sort(DATE_DESC_COMPARATOR);
         Assert.assertEquals(dates, datesCopy);
     }
 
+    @Step("Проверка сортировки списка дат по возрастанию")
     public static void assertListSortedByDateAsc(List<String> dates) {
         List<String> datesCopy = new ArrayList<>(dates);
         datesCopy.sort(DATE_ASC_COMPARATOR);
         Assert.assertEquals(dates, datesCopy);
     }
 
+    @Step("Проверка сортировки списка элементов по убыванию")
     public static void assertListSortedByElementsDesc(List<String> elements) {
         List<String> elementsCopy = new ArrayList<>(elements);
         elementsCopy.sort(USER_DESC_COMPARATOR);
         Assert.assertEquals(elements, elementsCopy);
     }
 
+    @Step("Проверка сортировки списка элементо по возрастанию")
     public static void assertListSortedByElementAsc(List<String> elements) {
         List<String> elementsCopy = new ArrayList<>(elements);
         elementsCopy.sort(USER_ASC_COMPARATOR);
         Assert.assertEquals(elements, elementsCopy);
     }
 
+    @Step("Проверка на неотсортированность списка элементов")
     public static void assertListNoSortedByElement(List<String> elements) {
         List<String> elementCopy = new ArrayList<>(elements);
         elementCopy.sort(USER_DESC_COMPARATOR);

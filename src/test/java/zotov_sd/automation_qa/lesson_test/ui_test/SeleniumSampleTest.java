@@ -1,4 +1,4 @@
-package zotov_sd.automation_qa.test.ui_test;
+package zotov_sd.automation_qa.lesson_test.ui_test;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

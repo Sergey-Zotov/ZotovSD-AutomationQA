@@ -1,5 +1,6 @@
 package zotov_sd.automation_qa.ui.browser;
 
+import io.qameta.allure.Attachment;
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -38,6 +39,7 @@ public class Browser {
         getDriver().navigate().refresh();
     }
 
+    @Attachment("Скриншот")
     public byte[] takeScreenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
