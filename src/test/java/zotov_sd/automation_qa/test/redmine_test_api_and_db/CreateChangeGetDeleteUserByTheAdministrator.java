@@ -1,8 +1,12 @@
 package zotov_sd.automation_qa.test.redmine_test_api_and_db;
 
-import org.testng.Assert;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Step;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import zotov_sd.automation_qa.allure.AllureAssert;
 import zotov_sd.automation_qa.api.client.RestApiClient;
 import zotov_sd.automation_qa.api.client.RestRequest;
 import zotov_sd.automation_qa.api.client.RestResponse;
@@ -16,6 +20,7 @@ import zotov_sd.automation_qa.model.user.Token;
 import zotov_sd.automation_qa.model.user.User;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static zotov_sd.automation_qa.api.client.RestMethod.*;
 import static zotov_sd.automation_qa.api.rest_assured.GsonProvider.GSON;
@@ -28,19 +33,21 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     private UserInfoDto userResponse;
     private User userDB;
 
-    @BeforeMethod
+    @BeforeMethod(description = "Создание пользователя с правами Администратора, с доступом к API и ключ API")
     public void prepareFixtures() {
         User Admin = new User() {{
             setIsAdmin(true);
             setEmails(Arrays.asList(new Email(this), new Email(this)));
-            setTokens(Arrays.asList(new Token(this)));
+            setTokens(Collections.singletonList(new Token(this)));
         }}.create();
 
         apiClient = new RestAssuredClient(Admin);
 
     }
 
-    @Test
+    @Test(description = " Создание, изменение, получение, удаление пользователя. Администратор системы")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
     public void userTest() {
 
         dto = new UserInfoDto(new UserDto().setStatus(2));
@@ -61,88 +68,115 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
         repeatedDeleteUserResponse(userResponse);
     }
 
+    @Step("Сравнение пользователя из ответа API с темже пользователем из БД")
     private void compare() {
-        Assert.assertNotNull(userResponse.getUser().getStatus());
-        Assert.assertEquals(userResponse.getUser().getStatus(), userDB.getStatus().statusCode);
-        Assert.assertNotNull(userResponse.getUser().getLogin());
-        Assert.assertEquals(userResponse.getUser().getLogin(), userDB.getLogin());
-        Assert.assertNotNull(userResponse.getUser().getLastName());
-        Assert.assertEquals(userResponse.getUser().getLastName(), userDB.getLastName());
-        Assert.assertNotNull(userResponse.getUser().getFirstName());
-        Assert.assertEquals(userResponse.getUser().getFirstName(), userDB.getFirstName());
-        Assert.assertNotNull(userResponse.getUser().getAdmin());
-        Assert.assertEquals(userResponse.getUser().getAdmin(), userDB.getIsAdmin());
-        Assert.assertNotNull(userResponse.getUser().getMail());
-        Assert.assertEquals(userResponse.getUser().getMail(), userDB.getEmails().get(0).getAddress());
-        Assert.assertNotNull(userResponse.getUser().getApiKey());
-        Assert.assertEquals(userResponse.getUser().getApiKey(), userDB.getTokens().get(0).getValue());
+        AllureAssert.assertNotNull(userResponse.getUser().getStatus(), "Статус");
+        AllureAssert.assertEquals(userResponse.getUser().getStatus(), userDB.getStatus().statusCode);
+        AllureAssert.assertNotNull(userResponse.getUser().getLogin(), "Логин");
+        AllureAssert.assertEquals(userResponse.getUser().getLogin(), userDB.getLogin());
+        AllureAssert.assertNotNull(userResponse.getUser().getLastName(),"Имя");
+        AllureAssert.assertEquals(userResponse.getUser().getLastName(), userDB.getLastName());
+        AllureAssert.assertNotNull(userResponse.getUser().getFirstName(),"Фамилии");
+        AllureAssert.assertEquals(userResponse.getUser().getFirstName(), userDB.getFirstName());
+        AllureAssert.assertNotNull(userResponse.getUser().getAdmin(),"статус Админестратора");
+        AllureAssert.assertEquals(userResponse.getUser().getAdmin(), userDB.getIsAdmin());
+        AllureAssert.assertNotNull(userResponse.getUser().getMail(),"Mail");
+        AllureAssert.assertEquals(userResponse.getUser().getMail(), userDB.getEmails().get(0).getAddress());
+        AllureAssert.assertNotNull(userResponse.getUser().getApiKey(), "API ключ");
+        AllureAssert.assertEquals(userResponse.getUser().getApiKey(), userDB.getTokens().get(0).getValue());
     }
 
+    @Step("Запрос POST на создание пользователя")
     private RestResponse postResponse(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(POST, "/users.json", null, null, body);
         return apiClient.execute(request);
     }
 
+    @Step("Проверка нового пользователя, со статусом = 2")
     private void postUser(RestResponse response) {
         userResponse = response.getPayload(UserInfoDto.class);
         userDB = new User().read(userResponse.getUser().getId());
-        Assert.assertEquals(userResponse.getUser().getStatus().intValue(), 2);
-        Assert.assertEquals(response.getStatusCode(), 201);
+        AllureAssert.assertEquals(userResponse.getUser().getStatus(), 2,
+                "статус пользователя");
+        AllureAssert.assertEquals(response.getStatusCode(), 201,
+                "статус код 201");
         compare();
     }
 
+    @Step("Проверка на создание пользователя повторно с тем же телом запроса")
     private void repeatedPostUser(RestResponse response) {
         ErrorInfoDto repeated = response.getPayload(ErrorInfoDto.class);
-        Assert.assertEquals(repeated.getErrors().get(0), "Email уже существует");
-        Assert.assertEquals(repeated.getErrors().get(1), "Пользователь уже существует");
-        Assert.assertEquals(response.getStatusCode(), 422);
-        Assert.assertEquals(response.getPayload(), "{\"errors\":[\"Email уже существует\",\"Пользователь уже существует\"]}");
+        AllureAssert.assertEquals(repeated.getErrors().get(0), "Email уже существует",
+                "сообщения из ответа");
+        AllureAssert.assertEquals(repeated.getErrors().get(1), "Пользователь уже существует",
+                "сообщения из ответа");
+        AllureAssert.assertEquals(response.getStatusCode(), 422, "статус код 422");
+        AllureAssert.assertEquals(response.getPayload(), "{\"errors\":[\"Email уже существует\",\"Пользователь уже существует\"]}",
+                "тело ответа");
     }
 
+    @Step("Проверка на создание пользователя повторно с тем же телом запроса, с невалидным \"email\" и \"password\" ")
     private void repeatedPostUserNoValidEmailAndPassword(RestResponse response) {
-        Assert.assertEquals(response.getStatusCode(), 422);
-        Assert.assertEquals(response.getPayload(), "{\"errors\":[\"Email имеет неверное значение\",\"Пароль недостаточной длины (не может быть меньше 8 символа)\"]}");
+        AllureAssert.assertEquals(response.getStatusCode(), 422,
+                "статус код 422");
+        AllureAssert.assertEquals(response.getPayload(), "{\"errors\":[\"Email имеет неверное значение\",\"Пароль недостаточной длины (не может быть меньше 8 символа)\"]}",
+                "тело ответа");
     }
 
+    @Step("Запрос PUT на изменение пользователя")
     private RestResponse putResponse(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(PUT, "/users/" + dto.getUser().getId() + ".json", null, null, body);
         return apiClient.execute(request);
     }
 
+    @Step("Проверка измененного пользователя")
     private void putUser(RestResponse response) {
-        Assert.assertEquals(response.getStatusCode(), 204);
-        Assert.assertNotNull(userResponse.getUser().getStatus());
-        Assert.assertEquals(userResponse.getUser().getStatus().intValue(), 1);
+        AllureAssert.assertEquals(response.getStatusCode(), 204,
+                "статус код");
+        AllureAssert.assertNotNull(userResponse.getUser().getStatus(),
+                "статус пользователя");
+        AllureAssert.assertEquals(userResponse.getUser().getStatus(), 1,
+                "статус пользователя из запроса");
         userDB = new User().read(userResponse.getUser().getId());
-        Assert.assertEquals(userDB.getStatus().statusCode.intValue(), 1);
+        AllureAssert.assertEquals(userDB.getStatus().statusCode, 1,
+                "статус пользователя из БД");
     }
 
+    @Step("Запрос GET на получение пользователя")
     private RestResponse getResponse(UserInfoDto dto) {
         request = new RestAssuredRequest(GET, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         return apiClient.execute(request);
     }
 
+    @Step("Проверка полученного пользователя")
     private void getUser(RestResponse response) {
         userResponse = response.getPayload(UserInfoDto.class);
         userDB = new User().read(userResponse.getUser().getId());
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(userResponse.getUser().getStatus().intValue(), 1);
+        AllureAssert.assertEquals(response.getStatusCode(), 200,
+                "статус код");
+        AllureAssert.assertEquals(userResponse.getUser().getStatus(), 1,
+                "статус пользователя из запроса");
         compare();
     }
 
+    @Step("Запрос DELETE на удаление пользователя, проверка его удаления")
     private void deleteUserResponse(UserInfoDto dto) {
         Integer id = dto.getUser().getId();
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
-        Assert.assertEquals(response.getStatusCode(), 204);
-        Assert.assertNull(userDB = new User().read(id));
+        AllureAssert.assertEquals(response.getStatusCode(), 204,
+                "статус код");
+        AllureAssert.assertNull(userDB = new User().read(id),
+                "пользователь в БД");
     }
 
+    @Step("Запрос DELETE на повторное удаление пользователя, проверка ответа")
     private void repeatedDeleteUserResponse(UserInfoDto dto) {
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
-        Assert.assertEquals(response.getStatusCode(), 404);
+        AllureAssert.assertEquals(response.getStatusCode(), 404,
+                "статус код");
     }
 }
