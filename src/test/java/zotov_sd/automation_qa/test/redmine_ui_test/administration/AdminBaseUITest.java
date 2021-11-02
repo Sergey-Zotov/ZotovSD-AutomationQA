@@ -37,37 +37,37 @@ public class AdminBaseUITest extends BaseUITest {
         loginPage.login(admin);
     }
 
-    @Step("Проверка на отсортированность списка по убыванию")
-    protected void assertListSortedByElementsDesc(List<WebElement> elements) {
+    @Step("Таблица отсортирована по {1} по убыванию")
+    protected void assertListSortedByElementsDesc(List<WebElement> elements, String description) {
         List<String> creationElementsByDesc = BrowserUtils.getElementsText(elements);
         CompareUtils.assertListSortedByElementsDesc(creationElementsByDesc);
     }
 
-    @Step("Проверка на отсортированность списка по возростанию")
-    protected void assertListSortedByElementsAsc(List<WebElement> elements) {
+    @Step("Таблица отсортирована по {1} по возростанию")
+    protected void assertListSortedByElementsAsc(List<WebElement> elements, String description) {
         List<String> creationElementsByAsc = BrowserUtils.getElementsText(elements);
         CompareUtils.assertListSortedByElementAsc(creationElementsByAsc);
     }
 
-    @Step("Проверка не отсортированности списка")
-    protected void assertListNoSortedByElements(List<WebElement> elements) {
+    @Step("Таблица не отсортирована по {1}")
+    protected void assertListNoSortedByElements(List<WebElement> elements, String description) {
         List<String> creationElementsByAsc = BrowserUtils.getElementsText(elements);
         CompareUtils.assertListNoSortedByElement(creationElementsByAsc);
     }
 
-    @Step("Проверка отоброжения \"Домашняя страница\"")
+    @Step("Отображается домашняя страница")
     protected void assertHomepage() {
         Assert.assertTrue(isElementDisplayed(headerPage.content));
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
     }
 
-    @Step("Проверка наличия кнопки \"Администрирование\"")
+    @Step("Отображается страница \"Администрирование\"")
     protected void assertAdministration() {
         Assert.assertTrue(isElementDisplayed(administrationPage.content));
         Assert.assertEquals(administrationPage.content.getText(), "Администрирование");
     }
 
-    @Step("Проверка наличия кнопки \"Пользователи\"")
+    @Step("Отображается таблица с пользователями")
     protected void assertUserTable() {
         Assert.assertTrue(isElementDisplayed(userTablePage.content));
         Assert.assertEquals(userTablePage.content.getText(), "Пользователи");

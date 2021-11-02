@@ -42,7 +42,12 @@ public class BrowserUtils {
     }
 
     @Step("Нажимаю на элемент {1}")
-    public static void click(WebElement element, String description) {
+    public static void click(WebElement element, String message) {
         element.click();
+    }
+
+    @Step("Заполняю поле {1}")
+    public static void sendKeys(WebElement element, String value, String message) {
+        element.sendKeys(value);
     }
 }

@@ -1,31 +1,39 @@
 package zotov_sd.automation_qa.test.redmine_ui_test.administration;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static zotov_sd.automation_qa.ui.browser.BrowserUtils.click;
+
 public class SortingUserList extends AdminBaseUITest {
 
-    @BeforeMethod
-        public void prepareFixtures() {
-            createAdmin();
-            createUsers();
-            openBrowser();
-        }
+    @BeforeMethod(description = "1. Заведен пользователь в системе с правами администратора\n" +
+            "2. Заведено несколько пользователей в системе 3. Открыт браузер.")
+    public void prepareFixtures() {
+        createAdmin();
+        createUsers();
+        openBrowser();
+    }
 
-        @Test
-        public void sortingUserListTest() {
-            loginAdmin();
-            assertHomepage();
+    @Test(description = "Администрирование. Сортировка списка пользователей по пользователю")
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Зотов С.Д.")
+    public void sortingUserListTest() {
+        loginAdmin();
+        assertHomepage();
 
-            headerPage.administration.click();
-            assertAdministration();
+        click(headerPage.administration, "Администрирование");
+        assertAdministration();
 
-            administrationPage.users.click();
-            assertUserTable();
+        click(administrationPage.users, "Пользователи");
+        assertUserTable();
 
-        assertListSortedByElementsDesc(userTablePage.userNameList);
+        assertListSortedByElementsDesc(userTablePage.userNameList, "логину пользователей");
 
-        userTablePage.users.click();
-        assertListSortedByElementsAsc(userTablePage.userNameList);
+        click(userTablePage.users, "Пользователь");
+        assertListSortedByElementsAsc(userTablePage.userNameList, "логину пользователей");
     }
 }
