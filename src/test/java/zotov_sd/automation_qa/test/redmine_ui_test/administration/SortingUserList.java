@@ -3,7 +3,7 @@ package zotov_sd.automation_qa.test.redmine_ui_test.administration;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class SortingUserList extends Admin {
+public class SortingUserList extends AdminBaseUITest {
 
     @BeforeMethod
         public void prepareFixtures() {

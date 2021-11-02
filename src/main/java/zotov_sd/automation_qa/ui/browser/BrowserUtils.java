@@ -18,7 +18,6 @@ public class BrowserUtils {
                 .collect(Collectors.toList());
     }
 
-    @Step("Проверка отображения елемента {0} на странице")
     public static boolean isElementDisplayed(WebElement element) {
         try {
             BrowserManager.getBrowser().getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -30,7 +29,6 @@ public class BrowserUtils {
         }
     }
 
-    @Step("Проверка отображения проекта с id={0} на странице")
     public static Boolean isProjectDisplayed(Integer id) throws NoSuchElementException {
         try {
             BrowserManager.getBrowser().getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
