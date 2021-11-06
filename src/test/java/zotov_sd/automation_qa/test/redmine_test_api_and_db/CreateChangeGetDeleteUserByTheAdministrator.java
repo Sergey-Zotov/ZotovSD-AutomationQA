@@ -57,8 +57,8 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
 
         dto = new UserInfoDto(new UserDto().setMail("zotmail.ru").setPassword("1Qa@"));
         repeatedPostUserNoValidEmailAndPassword(postResponse(dto));
-
-        userResponse.getUser().setStatus(1).setCreatedOn(null);
+        
+        userResponse.getUser().setStatus(1);
         putUser(putResponse(userResponse));
 
         getUser(getResponse(userResponse));

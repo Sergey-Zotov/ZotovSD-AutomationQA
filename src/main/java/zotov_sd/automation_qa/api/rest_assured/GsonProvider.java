@@ -19,7 +19,7 @@ public class GsonProvider {
         public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             String value = json.getAsJsonPrimitive().getAsString();
-            return LocalDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            return LocalDateTime.parse(value, DateTimeFormatter.ISO_DATE_TIME);
         }
 
     }
@@ -28,7 +28,7 @@ public class GsonProvider {
 
         @Override
         public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-            String value = src.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            String value = src.format(DateTimeFormatter.ISO_DATE_TIME);
             return new JsonPrimitive(value);
         }
     }
