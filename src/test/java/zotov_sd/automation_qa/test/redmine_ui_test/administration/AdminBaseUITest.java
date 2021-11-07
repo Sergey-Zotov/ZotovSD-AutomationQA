@@ -24,12 +24,11 @@ public class AdminBaseUITest extends BaseUITest {
         }}.create();
     }
 
-    @Step("Создание 4 пользователей в БД")
-    protected void createUsers() {
-        User user1 = new User().create();
-        User user2 = new User().create();
-        User user3 = new User().create();
-        User user4 = new User().create();
+    @Step("Создание {0} пользователей в БД")
+    protected void createUsers(Integer count) {
+        for (int i = 0; i < count; i++) {
+            new User().create();
+        }
     }
 
     protected void loginAdmin() {
@@ -56,19 +55,19 @@ public class AdminBaseUITest extends BaseUITest {
     }
 
     @Step("Отображается домашняя страница")
-    protected void assertHomepage() {
+    protected void assertHomepageIsDisplayed() {
         Assert.assertTrue(isElementDisplayed(headerPage.content));
         Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
     }
 
     @Step("Отображается страница \"Администрирование\"")
-    protected void assertAdministration() {
+    protected void assertAdministrationIsDisplayed() {
         Assert.assertTrue(isElementDisplayed(administrationPage.content));
         Assert.assertEquals(administrationPage.content.getText(), "Администрирование");
     }
 
     @Step("Отображается таблица с пользователями")
-    protected void assertUserTable() {
+    protected void assertUserTableIsDisplayed() {
         Assert.assertTrue(isElementDisplayed(userTablePage.content));
         Assert.assertEquals(userTablePage.content.getText(), "Пользователи");
     }

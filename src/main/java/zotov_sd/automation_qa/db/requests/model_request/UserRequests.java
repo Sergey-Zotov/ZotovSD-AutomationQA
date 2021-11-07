@@ -105,4 +105,17 @@ public class UserRequests extends BaseRequests implements Create<User>, Update<U
                 .setCreatedOn(toLocalDate(data.get("created_on")))
                 .setId((Integer) data.get("id"));
     }
+
+    public Integer read(String login) {
+        try {
+            String query = "SELECT id, login, firstname, lastname, status, created_on\n" +
+                    "FROM public.users\n" +
+                    "WHERE login=?;\n";
+            List<Map<String, Object>> result = PostgresConnection.INSTANCE.executeQuery(query, login);
+            User user = from(result.get(0));
+            return user.getId();
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalStateException("Пользователь " + login + " в базе данных не найден.");
+        }
+    }
 }

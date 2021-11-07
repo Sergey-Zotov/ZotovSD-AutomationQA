@@ -14,7 +14,7 @@ public class SortingUserList extends AdminBaseUITest {
             "2. Заведено несколько пользователей в системе 3. Открыт браузер.")
     public void prepareFixtures() {
         createAdmin();
-        createUsers();
+        createUsers(5);
         openBrowser();
     }
 
@@ -23,13 +23,13 @@ public class SortingUserList extends AdminBaseUITest {
     @Owner("Зотов С.Д.")
     public void sortingUserListTest() {
         loginAdmin();
-        assertHomepage();
+        assertHomepageIsDisplayed();
 
         click(headerPage.administration, "Администрирование");
-        assertAdministration();
+        assertAdministrationIsDisplayed();
 
         click(administrationPage.users, "Пользователи");
-        assertUserTable();
+        assertUserTableIsDisplayed();
 
         assertListSortedByElementsDesc(userTablePage.userNameList, "логину пользователей");
 

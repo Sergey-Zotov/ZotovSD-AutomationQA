@@ -80,6 +80,7 @@ public class User extends CreatableEntity implements Creatable<User>, Readable<U
         new UserRequests().delete(this.id);
         return this;
     }
+
     @Step("Обнавлен пользователь в БД")
     @Override
     public User update() {
@@ -97,5 +98,10 @@ public class User extends CreatableEntity implements Creatable<User>, Readable<U
     @Step("Получен пользователь из БД")
     public User read(Integer id) {
         return new UserRequests().read(id);
+    }
+
+    @Step("Получение созданого пользователя из БД по логину")
+    public Integer readUserIdFromTheDatabaseByLogin() {
+        return new UserRequests().read(this.getLogin());
     }
 }

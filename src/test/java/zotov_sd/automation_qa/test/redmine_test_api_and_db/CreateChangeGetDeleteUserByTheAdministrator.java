@@ -51,21 +51,21 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     public void userTest() {
 
         dto = new UserInfoDto(new UserDto().setStatus(2));
-        postUser(postResponse(dto));
+        postUser(postInquiry(dto));
 
-        repeatedPostUser(postResponse(dto));
+        requestToCreateAnExistingUser(postInquiry(dto));
 
         dto = new UserInfoDto(new UserDto().setMail("zotmail.ru").setPassword("1Qa@"));
-        repeatedPostUserNoValidEmailAndPassword(postResponse(dto));
-        
+        repeatedPostUserNoValidEmailAndPassword(postInquiry(dto));
+
         userResponse.getUser().setStatus(1);
-        putUser(putResponse(userResponse));
+        putUser(putInquiry(userResponse));
 
-        getUser(getResponse(userResponse));
+        getUser(getInquiry(userResponse));
 
-        deleteUserResponse(userResponse);
+        deleteUserInquiry(userResponse);
 
-        repeatedDeleteUserResponse(userResponse);
+        repeatedDeleteUserInquiry(userResponse);
     }
 
     @Step("Сравнение пользователя из ответа API с темже пользователем из БД")
@@ -87,7 +87,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Запрос POST на создание пользователя")
-    private RestResponse postResponse(UserInfoDto dto) {
+    private RestResponse postInquiry(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(POST, "/users.json", null, null, body);
         return apiClient.execute(request);
@@ -105,7 +105,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Проверка на создание пользователя повторно с тем же телом запроса")
-    private void repeatedPostUser(RestResponse response) {
+    private void requestToCreateAnExistingUser(RestResponse response) {
         ErrorInfoDto repeated = response.getPayload(ErrorInfoDto.class);
         AllureAssert.assertEquals(repeated.getErrors().get(0), "Email уже существует",
                 "сообщения из ответа");
@@ -125,7 +125,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Запрос PUT на изменение пользователя")
-    private RestResponse putResponse(UserInfoDto dto) {
+    private RestResponse putInquiry(UserInfoDto dto) {
         String body = GSON.toJson(dto);
         request = new RestAssuredRequest(PUT, "/users/" + dto.getUser().getId() + ".json", null, null, body);
         return apiClient.execute(request);
@@ -145,7 +145,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Запрос GET на получение пользователя")
-    private RestResponse getResponse(UserInfoDto dto) {
+    private RestResponse getInquiry(UserInfoDto dto) {
         request = new RestAssuredRequest(GET, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         return apiClient.execute(request);
     }
@@ -162,7 +162,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Запрос DELETE на удаление пользователя, проверка его удаления")
-    private void deleteUserResponse(UserInfoDto dto) {
+    private void deleteUserInquiry(UserInfoDto dto) {
         Integer id = dto.getUser().getId();
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
@@ -173,7 +173,7 @@ public class CreateChangeGetDeleteUserByTheAdministrator {
     }
 
     @Step("Запрос DELETE на повторное удаление пользователя, проверка ответа")
-    private void repeatedDeleteUserResponse(UserInfoDto dto) {
+    private void repeatedDeleteUserInquiry(UserInfoDto dto) {
         request = new RestAssuredRequest(DELETE, "/users/" + dto.getUser().getId() + ".json", null, null, null);
         RestResponse response = apiClient.execute(request);
         AllureAssert.assertEquals(response.getStatusCode(), 404,

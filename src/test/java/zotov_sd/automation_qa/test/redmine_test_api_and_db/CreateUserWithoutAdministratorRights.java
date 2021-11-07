@@ -49,8 +49,6 @@ public class CreateUserWithoutAdministratorRights {
     }
 
     @Step("Запрос POST")
-    @Severity(SeverityLevel.BLOCKER)
-    @Owner("Зотов С.Д.")
     private void postRequest() {
         apiClient = new RestAssuredClient(user);
         String body = GSON.toJson(new UserInfoDto(new UserDto()));
