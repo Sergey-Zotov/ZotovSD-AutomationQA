@@ -5,11 +5,14 @@ import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import zotov_sd.automation_qa.cucumber.ElementName;
+import zotov_sd.automation_qa.cucumber.PageName;
 import zotov_sd.automation_qa.ui.browser.BrowserManager;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@PageName("Пользователи")
 public class UserTablePage extends Page {
 
     @FindBy(xpath = "//*[@id=\"main\"]//div[@id=\"content\"]/h2")
@@ -33,11 +36,16 @@ public class UserTablePage extends Page {
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='lastname']")
     public List<WebElement> lastNameList;
 
+    @ElementName("Даты создания")
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='created_on']")
     public List<WebElement> creationDates;
 
     @FindBy(xpath = "//*[@id=\"content\"]//a[@class=\"icon icon-add\"]")
     public WebElement newUser;
+
+    @ElementName("Создано")
+    @FindBy(xpath = "//th[@title='Сортировать по \"Создано\"']/a")
+    private WebElement created;
 
 
     public WebElement button(String text) {

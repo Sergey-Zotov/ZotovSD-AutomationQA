@@ -4,13 +4,17 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import zotov_sd.automation_qa.cucumber.ElementName;
+import zotov_sd.automation_qa.cucumber.PageName;
 
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@PageName("Заголовок страницы")
 public class HeaderPage extends Page {
 
     @FindBy(xpath = "//div[@id='account']//a[@class='login']")
     public WebElement loginButton;
 
+    @ElementName("Моя учётная запись")
     @FindBy(xpath = "//div[@id='account']//a[@class='my-account']")
     public WebElement myAccount;
 
@@ -23,6 +27,7 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"projects\"]")
     public WebElement projects;
 
+    @ElementName("Администрирование")
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"administration\"]")
     public WebElement administration;
 
@@ -32,6 +37,7 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"logout\"]")
     public WebElement out;
 
+    @ElementName("Войти")
     @FindBy(xpath = "//*[@id='account']//a[@class='login']")
     public WebElement logIn;
 

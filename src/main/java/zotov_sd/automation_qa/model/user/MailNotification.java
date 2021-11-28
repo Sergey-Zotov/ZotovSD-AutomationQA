@@ -18,6 +18,6 @@ public enum MailNotification {
         return Stream.of(values())
                 .filter(mailNotification -> mailNotification.description.equals(description))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Не найден объект enum MailNotification"));
+                .orElseThrow(() -> new IllegalArgumentException("Не найден объект MailNotification с описанием " + description));
     }
 }
