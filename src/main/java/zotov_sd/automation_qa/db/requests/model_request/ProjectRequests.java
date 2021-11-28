@@ -3,7 +3,7 @@ package zotov_sd.automation_qa.db.requests.model_request;
 import zotov_sd.automation_qa.db.connection.PostgresConnection;
 import zotov_sd.automation_qa.db.requests.*;
 import zotov_sd.automation_qa.model.project.Project;
-import zotov_sd.automation_qa.model.project.Status;
+import zotov_sd.automation_qa.model.project.StatusProject;
 
 import java.util.List;
 import java.util.Map;
@@ -88,7 +88,7 @@ public class ProjectRequests extends BaseRequests implements Create<Project>, Re
                 .setIsPublic((Boolean) data.get("is_public"))
                 .setParentId((Integer) data.get("parent_id"))
                 .setIdentifier((String) data.get("identifier"))
-                .setStatus(Status.fromInteger((Integer) data.get("status")))
+                .setStatus(StatusProject.fromInteger((Integer) data.get("status")))
                 .setLft((Integer) data.get("lft"))
                 .setRgt((Integer) data.get("rgt"))
                 .setInheritMembers((Boolean) data.get("inherit_members"))

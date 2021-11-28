@@ -25,7 +25,7 @@ public class LoginPage extends Page {
     @FindBy(xpath = "//input[@id='login-submit']")
     private WebElement signInButton;
 
-    @ElementName("Сообщение")
+    @ElementName("Ваша учётная запись создана и ожидает подтверждения администратора.")
     @FindBy(xpath = "//div[@id='flash_error']")
     public WebElement errorFlash;
 

@@ -1,6 +1,9 @@
 package zotov_sd.automation_qa.model.role;
 
 import lombok.AllArgsConstructor;
+import zotov_sd.automation_qa.model.project.StatusProject;
+
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public enum Permissions {
@@ -76,4 +79,10 @@ public enum Permissions {
 
     public final String value;
 
+    public static Permissions of(String description) {
+        return Stream.of(values())
+                .filter(permissions -> permissions.value.equals(description))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не найден объект Permissions с описанием " + description));
+    }
 }

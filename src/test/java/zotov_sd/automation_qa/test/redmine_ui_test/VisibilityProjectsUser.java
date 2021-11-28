@@ -64,9 +64,9 @@ public class VisibilityProjectsUser extends BaseUITest {
         click(headerPage.logIn, "Логин");
         loginPage.login(user);
 
-        AllureAssert.assertTrue(isElementDisplayed(headerPage.content),
+        AllureAssert.assertTrue(isElementDisplayed(headerPage.myHomepage),
                 "Отображается домашняя страница");
-        Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+        Assert.assertEquals(headerPage.myHomepage.getText(), "Домашняя страница");
 
         click(headerPage.projects, "Проекты");
         AllureAssert.assertTrue(isElementDisplayed(projectTablePage.projectsSelected),

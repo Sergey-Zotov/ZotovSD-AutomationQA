@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import zotov_sd.automation_qa.allure.AllureAssert;
 import zotov_sd.automation_qa.lesson_test.ui_test.BaseUITest;
 import zotov_sd.automation_qa.model.project.Project;
-import zotov_sd.automation_qa.model.project.Status;
+import zotov_sd.automation_qa.model.project.StatusProject;
 import zotov_sd.automation_qa.model.user.User;
 
 import static zotov_sd.automation_qa.ui.browser.BrowserUtils.*;
@@ -26,7 +26,7 @@ public class PrivateProjectVisibility extends BaseUITest {
         }}.create();
 
         project = new Project() {{
-            setStatus(Status.CLOSED);
+            setStatus(StatusProject.CLOSED);
         }}.create();
 
         openBrowser();
@@ -39,9 +39,9 @@ public class PrivateProjectVisibility extends BaseUITest {
         click(headerPage.logIn, "Логин");
         loginPage.login(admin);
 
-        AllureAssert.assertTrue(isElementDisplayed(headerPage.content),
+        AllureAssert.assertTrue(isElementDisplayed(headerPage.myHomepage),
                 "Отображается домашняя страница");
-        Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+        Assert.assertEquals(headerPage.myHomepage.getText(), "Домашняя страница");
 
         click(headerPage.projects, "Проэкты");
         AllureAssert.assertTrue(isElementDisplayed(projectTablePage.projectsSelected),

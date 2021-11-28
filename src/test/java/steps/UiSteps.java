@@ -1,22 +1,23 @@
 package steps;
 
-
 import cucumber.api.java.ru.Если;
 import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Пусть;
+import cucumber.api.java.ru.То;
 import org.openqa.selenium.WebElement;
 import zotov_sd.automation_qa.allure.AllureAssert;
 import zotov_sd.automation_qa.context.Context;
 import zotov_sd.automation_qa.cucumber.PageObjectHelper;
+import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.user.User;
 import zotov_sd.automation_qa.ui.pages.HeaderPage;
 import zotov_sd.automation_qa.ui.pages.LoginPage;
 
 import java.util.List;
 
-import static zotov_sd.automation_qa.ui.browser.BrowserUtils.getElementsText;
+import static zotov_sd.automation_qa.ui.browser.BrowserUtils.*;
 import static zotov_sd.automation_qa.ui.pages.Page.getPage;
 import static zotov_sd.automation_qa.utils.CompareUtils.assertListSortedByDateDesc;
-
 
 public class UiSteps {
 
@@ -53,4 +54,45 @@ public class UiSteps {
         assertListSortedByDateDesc(elementsTexts);
     }
 
+    @То("Отображается \"Вошли как <(.+)>\"")
+    public void assertElementTextsIsEnteredAs(String userStashId) {
+        User user = Context.getStash().get(userStashId, User.class);
+        AllureAssert.assertTrue(isElementDisplayed(getPage(HeaderPage.class).enteredAs), "В заголовке страницы отображается элемент: \"Вошли как ...\"");
+        AllureAssert.assertEquals(getPage(HeaderPage.class).enteredAs.getText(), "Вошли как " + user.getLogin(),
+                "Вошли как " + user.getLogin());
+    }
+
+    @То("На странице {string} отображается элемент {string}")
+    public void assertElementDisplayed(String pageName, String elementName) {
+        WebElement webElement = PageObjectHelper.findElement(pageName, elementName);
+        AllureAssert.assertTrue(isElementDisplayed(webElement), "В " + pageName + " отображается элемент: " + elementName);
+    }
+
+    @Пусть("На странице {string} не отображается элемент {string}")
+    public void assertNotElementDisplayed(String pageName, String elementName) {
+        WebElement webElement = PageObjectHelper.findElement(pageName, elementName);
+        AllureAssert.assertFalse(isElementDisplayed(webElement),
+                "В заголовке отображается элемент " + elementName);
+    }
+
+    @Пусть("На странице {string} отображается элемент с текстом {string}")
+    public void assertElementDisplayedAndText(String pageName, String elementName) {
+        WebElement webElement = PageObjectHelper.findElement(pageName, elementName);
+        AllureAssert.assertTrue(isElementDisplayed(webElement), "В " + pageName + " отображается элемент: " + elementName);
+        AllureAssert.assertEquals(webElement.getText(), elementName);
+    }
+
+    @То("На странице Проекты отоброжается проект \"(.+)\"")
+    public void projectDisplayed(String projectStashId) {
+        Project project = Context.getStash().get(projectStashId, Project.class);
+        AllureAssert.assertTrue(isProjectDisplayed(project.getId()),
+                "Отображается проект из предусловия");
+    }
+
+    @То("На странице Проекты не отоброжается проект \"(.+)\"")
+    public void projectNotDisplayed(String projectStashId) {
+        Project project = Context.getStash().get(projectStashId, Project.class);
+        AllureAssert.assertFalse(isProjectDisplayed(project.getId()),
+                "Отображается проект из предусловия");
+    }
 }

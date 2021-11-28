@@ -11,19 +11,15 @@ import zotov_sd.automation_qa.cucumber.PageName;
 @PageName("Заголовок страницы")
 public class HeaderPage extends Page {
 
-    @FindBy(xpath = "//div[@id='account']//a[@class='login']")
-    public WebElement loginButton;
-
     @ElementName("Моя учётная запись")
     @FindBy(xpath = "//div[@id='account']//a[@class='my-account']")
     public WebElement myAccount;
 
-    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"home\"]")
-    public WebElement myHomepage;
-
+    @ElementName("Моя страница")
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"my-page\"]")
     public WebElement myPage;
 
+    @ElementName("Проекты")
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"projects\"]")
     public WebElement projects;
 
@@ -31,9 +27,11 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"administration\"]")
     public WebElement administration;
 
-    @FindBy(xpath = "///*[@id=\"top-menu\"]//a[@class=\"help\"]")
+    @ElementName("Помощь")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"help\"]")
     public WebElement help;
 
+    @ElementName("Выйти")
     @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"logout\"]")
     public WebElement out;
 
@@ -41,6 +39,7 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//*[@id='account']//a[@class='login']")
     public WebElement logIn;
 
+    @ElementName("Регистрация")
     @FindBy(xpath = "//*[@id=\"account\"]//a[@class=\"register\"]")
     public WebElement registration;
 
@@ -50,10 +49,12 @@ public class HeaderPage extends Page {
     @FindBy(xpath = "//*[@id=\"top-menu\"]")
     public WebElement pageTitle;
 
+    @ElementName("Поиск")
     @FindBy(xpath = "//*[@id=\"q\"]")
     public WebElement search;
 
-    @FindBy(xpath = "//*[@id=\"content\"]")
-    public WebElement content;
+    @ElementName("Домашняя страница")
+    @FindBy(xpath = "//*[@id=\"top-menu\"]//a[@class=\"home\"]")
+    public WebElement myHomepage;
 
 }

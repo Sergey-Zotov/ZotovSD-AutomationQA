@@ -5,7 +5,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import zotov_sd.automation_qa.model.project.Project;
-import zotov_sd.automation_qa.model.project.Status;
+import zotov_sd.automation_qa.model.project.StatusProject;
 
 public class ProjectTest {
 
@@ -27,7 +27,7 @@ public class ProjectTest {
         project.create();
         project.setName("test1");
         project.setDescription("test2");
-        project.setStatus(Status.CLOSED);
+        project.setStatus(StatusProject.CLOSED);
         project.update();
         project.delete();
     }

@@ -1,6 +1,7 @@
 package steps;
 
 import cucumber.api.java.ru.Дано;
+import cucumber.api.java.ru.То;
 import zotov_sd.automation_qa.ui.browser.BrowserManager;
 
 public class BrowserSteps {
@@ -15,4 +16,8 @@ public class BrowserSteps {
         BrowserManager.getBrowser();
     }
 
+    @То("Закрыть браузер")
+    public void closeBrowser() {
+        BrowserManager.closeBrowser();
+    }
 }

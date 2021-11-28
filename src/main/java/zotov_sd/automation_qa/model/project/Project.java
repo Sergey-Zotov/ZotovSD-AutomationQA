@@ -29,7 +29,7 @@ public class Project extends CreatableEntity implements Creatable<Project>, Dele
     private Boolean isPublic = false;
     private Integer parentId;
     private String identifier;
-    private Status status = Status.OPEN;
+    private StatusProject status = StatusProject.OPEN;
     private Integer lft = 1;
     private Integer rgt = 2;
     private Boolean inheritMembers = false;

@@ -56,8 +56,8 @@ public class AdminBaseUITest extends BaseUITest {
 
     @Step("Отображается домашняя страница")
     protected void assertHomepageIsDisplayed() {
-        Assert.assertTrue(isElementDisplayed(headerPage.content));
-        Assert.assertEquals(headerPage.content.getText(), "Домашняя страница");
+        Assert.assertTrue(isElementDisplayed(headerPage.myHomepage));
+        Assert.assertEquals(headerPage.myHomepage.getText(), "Домашняя страница");
     }
 
     @Step("Отображается страница \"Администрирование\"")

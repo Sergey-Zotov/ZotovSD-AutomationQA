@@ -2,19 +2,42 @@ package steps;
 
 import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Пусть;
 import io.cucumber.datatable.DataTable;
 import zotov_sd.automation_qa.context.Context;
+import zotov_sd.automation_qa.cucumber.validators.ProjectParametersValidator;
 import zotov_sd.automation_qa.cucumber.validators.UserParametersValidator;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRequest;
+import zotov_sd.automation_qa.db.requests.model_request.MemberRoleRequest;
+import zotov_sd.automation_qa.model.project.Project;
+import zotov_sd.automation_qa.model.role.Permissions;
+import zotov_sd.automation_qa.model.role.Role;
 import zotov_sd.automation_qa.model.user.Email;
 import zotov_sd.automation_qa.model.user.MailNotification;
 import zotov_sd.automation_qa.model.user.Status;
 import zotov_sd.automation_qa.model.user.User;
+import zotov_sd.automation_qa.model.project.StatusProject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class PrepareFixtureSteps {
+
+    @Пусть("В системе есть роль \"(.+)\" с параметрами:")
+    public void createRoles(String rolesStashId, DataTable dataTable) {
+        List<String> list = dataTable.asList();
+        List<Permissions> permissions = new ArrayList<>();
+        list.forEach(per -> {
+            Permissions permission = Permissions.of(per);
+            permissions.add(permission);
+        });
+        Role role = new Role() {{
+            setPermissions(getPermissions());
+        }}.create();
+        Context.getStash().put(rolesStashId, Collections.singletonList(role));
+    }
 
     @И("Имеется список E-Mail адресов \"(.+)\":")
     public void createEmails(String emailsStashId, DataTable dataTable) {
@@ -41,6 +64,7 @@ public class PrepareFixtureSteps {
     public void createAdminUser(String userStashId, Map<String, String> parameters) {
         UserParametersValidator.validateUserParameters(parameters.keySet());
         User user = new User();
+        List<Permissions> permissions = new ArrayList<>();
         if (parameters.containsKey("Администратор")) {
             Boolean isAdmin = Boolean.parseBoolean(parameters.get("Администратор"));
             user.setIsAdmin(isAdmin);
@@ -60,8 +84,36 @@ public class PrepareFixtureSteps {
             List<Email> emails = Context.getStash().get(emailsStashId, List.class);
             user.setEmails(emails);
         }
+
         user.create();
+
+        if (parameters.containsKey("Проект")) {
+            String projectStashId = parameters.get("Проект");
+            Project project = Context.getStash().get(projectStashId, Project.class);
+            MemberRequest.create(project, user);
+        }
+        if (parameters.containsKey("Роль")) {
+            String rolesStashId = parameters.get("Роль");
+            List<Role> roles = Context.getStash().get(rolesStashId, List.class);
+            roles.forEach(role -> MemberRoleRequest.create(role, user));
+
+        }
+
         Context.getStash().put(userStashId, user);
     }
+
+    @Пусть("В системе есть проект \"(.+)\" с параметрами:")
+    public void createProject(String projectStashId, Map<String, String> parameters) {
+        ProjectParametersValidator.validateProjectParameters(parameters.keySet());
+        Project project = new Project();
+        if (parameters.containsKey("Статус")) {
+            String statusDescription = parameters.get("Статус");
+            StatusProject status = StatusProject.of(statusDescription);
+            project.setStatus(status);
+        }
+        project.create();
+        Context.getStash().put(projectStashId, project);
+    }
+
 
 }
