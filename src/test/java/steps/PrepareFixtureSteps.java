@@ -4,6 +4,7 @@ import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Пусть;
 import io.cucumber.datatable.DataTable;
+import zotov_sd.automation_qa.allure.AllureAssert;
 import zotov_sd.automation_qa.context.Context;
 import zotov_sd.automation_qa.cucumber.validators.ProjectParametersValidator;
 import zotov_sd.automation_qa.cucumber.validators.UserParametersValidator;
@@ -12,10 +13,7 @@ import zotov_sd.automation_qa.db.requests.model_request.MemberRoleRequest;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.role.Permissions;
 import zotov_sd.automation_qa.model.role.Role;
-import zotov_sd.automation_qa.model.user.Email;
-import zotov_sd.automation_qa.model.user.MailNotification;
-import zotov_sd.automation_qa.model.user.Status;
-import zotov_sd.automation_qa.model.user.User;
+import zotov_sd.automation_qa.model.user.*;
 import zotov_sd.automation_qa.model.project.StatusProject;
 
 import java.util.ArrayList;
@@ -85,6 +83,7 @@ public class PrepareFixtureSteps {
             user.setEmails(emails);
         }
 
+        user.setTokens(Collections.singletonList(new Token(user)));
         user.create();
 
         if (parameters.containsKey("Проект")) {
@@ -108,12 +107,37 @@ public class PrepareFixtureSteps {
         Project project = new Project();
         if (parameters.containsKey("Статус")) {
             String statusDescription = parameters.get("Статус");
-            StatusProject status = StatusProject.of(statusDescription);
-            project.setStatus(status);
+            Boolean isPublic = statusDescription.equals("Публичный");
+            project.setIsPublic(isPublic);
         }
         project.create();
         Context.getStash().put(projectStashId, project);
     }
 
+    @Пусть("В системе есть {int} пользователей")
+    public void createUsers(int count) {
+        for (int i = 0; i < count; i++) {
+            new User().create();
+        }
+    }
 
+    @Пусть("Есть пользователь \"(.+)\"")
+    public void testUser(String testUserStashId) {
+        User user = new User(){{
+            setId(1);
+        }};
+        user.setEmails(Collections.singletonList(new Email(user)));
+        Context.getStash().put(testUserStashId, user);
+    }
+
+    @И("В базе данных в талице пользователи отображается \"(.+)\"")
+    public void checkingCreatedUser(String userStashId) {
+        User newUser = Context.getStash().get(userStashId, User.class);
+        Integer id = newUser.readUserIdFromTheDatabaseByLogin();
+        User copyUserDB = new User().read(id);
+        AllureAssert.assertEquals(newUser.getLogin(), copyUserDB.getLogin(), "Пользователя");
+        AllureAssert.assertEquals(newUser.getLastName(), copyUserDB.getLastName(), "Имени");
+        AllureAssert.assertEquals(newUser.getFirstName(), copyUserDB.getFirstName(), "Фамилии");
+        AllureAssert.assertEquals(newUser.getEmails().get(0).getAddress(), copyUserDB.getEmails().get(0).getAddress(), "Email");
+    }
 }

@@ -15,24 +15,31 @@ import java.util.List;
 @PageName("Пользователи")
 public class UserTablePage extends Page {
 
+    @ElementName("Пользователи")
     @FindBy(xpath = "//*[@id=\"main\"]//div[@id=\"content\"]/h2")
     public WebElement content;
 
+    @ElementName("Столбец Пользователи")
     @FindBy(xpath = "//table[@class='list users']//a[@class=\"sort asc icon icon-sorted-desc\"]")
     public WebElement users;
 
+    @ElementName("Список Логинов")
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='username']")
     public List<WebElement> userNameList;
 
+    @ElementName("Имя")
     @FindBy(xpath = "//table[@class='list users']//a[.=\"Имя\"]")
     public WebElement firstName;
 
+    @ElementName("Список Имен")
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='firstname']")
     public List<WebElement> firstNameList;
 
+    @ElementName("Фамилия")
     @FindBy(xpath = "//table[@class='list users']//a[.=\"Фамилия\"]")
     public WebElement lastName;
 
+    @ElementName("Список Фамилий")
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='lastname']")
     public List<WebElement> lastNameList;
 
@@ -40,6 +47,7 @@ public class UserTablePage extends Page {
     @FindBy(xpath = "//table[@class='list users']/tbody//td[@class='created_on']")
     public List<WebElement> creationDates;
 
+    @ElementName("Новый пользователь")
     @FindBy(xpath = "//*[@id=\"content\"]//a[@class=\"icon icon-add\"]")
     public WebElement newUser;
 

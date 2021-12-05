@@ -10,8 +10,10 @@ import zotov_sd.automation_qa.context.Context;
 import zotov_sd.automation_qa.cucumber.PageObjectHelper;
 import zotov_sd.automation_qa.model.project.Project;
 import zotov_sd.automation_qa.model.user.User;
+import zotov_sd.automation_qa.ui.browser.BrowserUtils;
 import zotov_sd.automation_qa.ui.pages.HeaderPage;
 import zotov_sd.automation_qa.ui.pages.LoginPage;
+import zotov_sd.automation_qa.utils.CompareUtils;
 
 import java.util.List;
 
@@ -94,5 +96,43 @@ public class UiSteps {
         Project project = Context.getStash().get(projectStashId, Project.class);
         AllureAssert.assertFalse(isProjectDisplayed(project.getId()),
                 "Отображается проект из предусловия");
+    }
+
+    @То("На странице {string}, таблица отсортирована по {string} по возрастанию")
+    public void assertListSortedByElementsDesc(String pageName, String elementName) {
+        List<WebElement> webElement = PageObjectHelper.findElements(pageName, elementName);
+        List<String> creationElementsByDesc = BrowserUtils.getElementsText(webElement);
+        CompareUtils.assertListSortedByElementsDesc(creationElementsByDesc);
+    }
+
+    @То("На странице {string}, таблица отсортирована по {string} по убыванию")
+    public void assertListSortedByElementsAsc(String pageName, String elementName) {
+        List<WebElement> webElement = PageObjectHelper.findElements(pageName, elementName);
+        List<String> creationElementsByAsc = BrowserUtils.getElementsText(webElement);
+        CompareUtils.assertListSortedByElementAsc(creationElementsByAsc);
+    }
+
+    @То("На странице {string}, таблица не отсортирована по {string}")
+    public void assertListNoSortedByElements(String pageName, String elementName) {
+        List<WebElement> webElement = PageObjectHelper.findElements(pageName, elementName);
+        List<String> creationElementsByAsc = BrowserUtils.getElementsText(webElement);
+        CompareUtils.assertListNoSortedByElement(creationElementsByAsc);
+    }
+
+    @И("На странице {string} в поле {string} ввести данные пользователя {string}")
+    public void clickOnElementOnPageUser(String pageName, String elementName, String testUserStashId) {
+        User user = Context.getStash().get(testUserStashId, User.class);
+        if (elementName.equals("Логин")){
+            PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getLogin());
+        }
+        if (elementName.equals("Имя")){
+            PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getLastName());
+        }
+        if (elementName.equals("Фамилия")){
+            PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getFirstName());
+        }
+        if (elementName.equals("Email")){
+            PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getEmails().get(0).getAddress());
+        }
     }
 }

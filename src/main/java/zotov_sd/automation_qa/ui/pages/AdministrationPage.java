@@ -11,6 +11,7 @@ import zotov_sd.automation_qa.cucumber.PageName;
 @PageName("Администрирование")
 public class AdministrationPage extends Page {
 
+    @ElementName("Администрирование")
     @FindBy(xpath = "//*[@id=\"main\"]//div[@id=\"content\"]/h2")
     public WebElement content;
 
