@@ -122,16 +122,16 @@ public class UiSteps {
     @И("На странице {string} в поле {string} ввести данные пользователя {string}")
     public void clickOnElementOnPageUser(String pageName, String elementName, String testUserStashId) {
         User user = Context.getStash().get(testUserStashId, User.class);
-        if (elementName.equals("Логин")){
+        if (elementName.equals("Логин")) {
             PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getLogin());
         }
-        if (elementName.equals("Имя")){
+        if (elementName.equals("Имя")) {
             PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getLastName());
         }
-        if (elementName.equals("Фамилия")){
+        if (elementName.equals("Фамилия")) {
             PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getFirstName());
         }
-        if (elementName.equals("Email")){
+        if (elementName.equals("Email")) {
             PageObjectHelper.findElement(pageName, elementName).sendKeys(user.getEmails().get(0).getAddress());
         }
     }
