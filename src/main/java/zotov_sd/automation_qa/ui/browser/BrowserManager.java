@@ -5,6 +5,10 @@ public class BrowserManager {
     // TODO: Использовать ThreadLocal
     private static Browser browser;
 
+    public static Boolean open() {
+       return browser != null;
+    }
+
     public static Browser getBrowser() {
         if (browser == null) {
             browser = new Browser();
